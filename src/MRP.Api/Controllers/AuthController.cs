@@ -37,6 +37,11 @@ namespace MRP.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Novo utilizador
+        /// </summary>
+        /// <param name="registerUser"></param>
+        /// <returns></returns>
         [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
         {

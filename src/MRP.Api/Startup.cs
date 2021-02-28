@@ -37,6 +37,8 @@ namespace MRP.Api
 
             services.AddSwaggerConfig();
 
+            services.AddLoggingConfig(Configuration);
+
             //injeção de dependencia dos objetos e do contexto
             services.ResolveDependencies();
         }
@@ -45,7 +47,10 @@ namespace MRP.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             app.UseApiConfig(env);
+
             app.UseSwaggerConfig(provider);
+
+            app.UseLoggingConfiguration();
         }
     }
 }
