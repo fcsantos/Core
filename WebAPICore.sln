@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRP.Business", "src\DevIO.Business\MRP.Business.csproj", "{E569DD30-0AB1-4585-A3B1-9DB38127FB29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Business", "src\DevIO.Business\Core.Business.csproj", "{E569DD30-0AB1-4585-A3B1-9DB38127FB29}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRP.Data", "src\DevIO.Data\MRP.Data.csproj", "{AE62938D-CC66-43D7-87AA-E69CD861E0A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Data", "src\DevIO.Data\Core.Data.csproj", "{AE62938D-CC66-43D7-87AA-E69CD861E0A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRP.Api", "src\MRP.Api\MRP.Api.csproj", "{90A0BBCE-F36A-4C3E-8F4D-21B669B92B31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Api", "src\MRP.Api\Core.Api.csproj", "{90A0BBCE-F36A-4C3E-8F4D-21B669B92B31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
