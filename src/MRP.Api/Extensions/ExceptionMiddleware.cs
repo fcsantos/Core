@@ -29,7 +29,7 @@ namespace MRP.Api.Extensions
 
         private static void HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            exception.Ship(context);
+            //exception.Ship(context);
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         }
     }

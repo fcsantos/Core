@@ -1,10 +1,12 @@
-﻿using System;
-using Elmah.Io.AspNetCore;
-using Elmah.Io.Extensions.Logging;
+﻿using Elmah.Io.AspNetCore;
+using Elmah.Io.AspNetCore.HealthChecks;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using MRP.Api.Extensions;
+using System;
 
 namespace MRP.Api.Configuration
 {
@@ -15,30 +17,19 @@ namespace MRP.Api.Configuration
             services.AddElmahIo(o =>
             {
                 o.ApiKey = "da8ff36d13e441ed9dafe01d86136bd0";
-                o.LogId = new Guid("e2ec3abe-0d7e-4b2f-9d53-229c3656da8c");
+                o.LogId = new Guid("d0b9e9ce-94a9-425c-864a-5719f53c0625");
             });
 
-            //services.AddHealthChecks()
-            //    .AddElmahIoPublisher(options =>
-            //    {
-            //        options.ApiKey = "388dd3a277cb44c4aa128b5c899a3106";
-            //        options.LogId = new Guid("c468b2b8-b35d-4f1a-849d-f47b60eef096");
-            //        options.HeartbeatId = "API Fornecedores";
+            services.AddHealthChecks()
+                .AddElmahIoPublisher(options =>
+                {
+                    options.ApiKey = "da8ff36d13e441ed9dafe01d86136bd0";
+                    options.LogId = new Guid("d0b9e9ce-94a9-425c-864a-5719f53c0625");
+                    options.HeartbeatId = "API Fornecedores";
 
-            //    })
-            //    .AddCheck("Produtos", new SqlServerHealthCheck(configuration.GetConnectionString("DefaultConnection")))
-            //    .AddSqlServer(configuration.GetConnectionString("DefaultConnection"), name: "BancoSQL");
-
-            //add ElmahIo como provider(pegando todos os logs passados pelo logger
-            //services.AddLogging(builder =>
-            //{
-            //    builder.AddElmahIo(o =>
-            //    {
-            //        o.ApiKey = "da8ff36d13e441ed9dafe01d86136bd0";
-            //        o.LogId = new Guid("e2ec3abe-0d7e-4b2f-9d53-229c3656da8c");
-            //    });
-            //    builder.AddFilter<ElmahIoLoggerProvider>(null, LogLevel.Warning);
-            //});
+                })
+                .AddCheck("Produtos", new SqlServerHealthCheck(configuration.GetConnectionString("DefaultConnection")))
+                .AddSqlServer(configuration.GetConnectionString("DefaultConnection"), name: "BancoSQL");
 
             return services;
         }
