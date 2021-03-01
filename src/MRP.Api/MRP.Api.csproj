@@ -34,9 +34,5 @@
     <ProjectReference Include="..\DevIO.Data\MRP.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 
 </Project>

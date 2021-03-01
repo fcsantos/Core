@@ -1,12 +1,14 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MRP.Api.Configuration;
+using MRP.Api.Data;
 using MRP.Data.Context;
 
 namespace MRP.Api
@@ -38,6 +40,15 @@ namespace MRP.Api
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            #region database configuration sample            
+            string connectionString = Configuration.GetConnectionString("IdentityConnection");
+
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+            #endregion
 
             //identity
             services.AddIdentityConfig(Configuration);
