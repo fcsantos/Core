@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Data.Migrations
 {
     [DbContext(typeof(MeuDbContext))]
-    [Migration("20210227033039_Initial")]
+    [Migration("20210304123322_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Core.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MRP.Business.Models.Endereco", b =>
+            modelBuilder.Entity("Core.Business.Models.Endereco", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,14 +65,10 @@ namespace Core.Data.Migrations
                     b.HasIndex("FornecedorId")
                         .IsUnique();
 
-                    b.HasIndex("PacienteId")
-                        .IsUnique()
-                        .HasFilter("[PacienteId] IS NOT NULL");
-
                     b.ToTable("Enderecos");
                 });
 
-            modelBuilder.Entity("MRP.Business.Models.Fornecedor", b =>
+            modelBuilder.Entity("Core.Business.Models.Fornecedor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,51 +93,24 @@ namespace Core.Data.Migrations
                     b.ToTable("Fornecedores");
                 });
 
-            modelBuilder.Entity("MRP.Business.Models.Paciente", b =>
+            modelBuilder.Entity("Core.Business.Models.Paciente", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Apelido")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<int>("GeneroId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("NumeroIdentificacao")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("NumeroUtente")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("Telemovel")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Pacientes");
                 });
 
-            modelBuilder.Entity("MRP.Business.Models.Produto", b =>
+            modelBuilder.Entity("Core.Business.Models.Produto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,21 +147,17 @@ namespace Core.Data.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("MRP.Business.Models.Endereco", b =>
+            modelBuilder.Entity("Core.Business.Models.Endereco", b =>
                 {
-                    b.HasOne("MRP.Business.Models.Fornecedor", "Fornecedor")
+                    b.HasOne("Core.Business.Models.Fornecedor", "Fornecedor")
                         .WithOne("Endereco")
-                        .HasForeignKey("MRP.Business.Models.Endereco", "FornecedorId")
+                        .HasForeignKey("Core.Business.Models.Endereco", "FornecedorId")
                         .IsRequired();
-
-                    b.HasOne("MRP.Business.Models.Paciente", "Paciente")
-                        .WithOne("Endereco")
-                        .HasForeignKey("MRP.Business.Models.Endereco", "PacienteId");
                 });
 
-            modelBuilder.Entity("MRP.Business.Models.Produto", b =>
+            modelBuilder.Entity("Core.Business.Models.Produto", b =>
                 {
-                    b.HasOne("MRP.Business.Models.Fornecedor", "Fornecedor")
+                    b.HasOne("Core.Business.Models.Fornecedor", "Fornecedor")
                         .WithMany("Produtos")
                         .HasForeignKey("FornecedorId")
                         .IsRequired();

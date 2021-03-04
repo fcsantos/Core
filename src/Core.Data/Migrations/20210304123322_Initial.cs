@@ -27,43 +27,12 @@ namespace Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Nome = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Apelido = table.Column<string>(type: "varchar(100)", nullable: false),
-                    NumeroIdentificacao = table.Column<string>(type: "varchar(30)", nullable: false),
-                    NumeroUtente = table.Column<string>(type: "varchar(30)", nullable: false),
-                    GeneroId = table.Column<int>(nullable: false),
-                    DataNascimento = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Telemovel = table.Column<string>(type: "varchar(30)", nullable: false),
-                    Ativo = table.Column<bool>(nullable: false)
+                    Nome = table.Column<string>(nullable: true),
+                    Apelido = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pacientes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Produtos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    FornecedorId = table.Column<Guid>(nullable: false),
-                    Nome = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Descricao = table.Column<string>(type: "varchar(1000)", nullable: false),
-                    Imagem = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Valor = table.Column<decimal>(nullable: false),
-                    DataCadastro = table.Column<DateTime>(nullable: false),
-                    Ativo = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Produtos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Produtos_Fornecedores_FornecedorId",
-                        column: x => x.FornecedorId,
-                        principalTable: "Fornecedores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,10 +59,28 @@ namespace Core.Data.Migrations
                         principalTable: "Fornecedores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Produtos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    FornecedorId = table.Column<Guid>(nullable: false),
+                    Nome = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Descricao = table.Column<string>(type: "varchar(1000)", nullable: false),
+                    Imagem = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Valor = table.Column<decimal>(nullable: false),
+                    DataCadastro = table.Column<DateTime>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Enderecos_Pacientes_PacienteId",
-                        column: x => x.PacienteId,
-                        principalTable: "Pacientes",
+                        name: "FK_Produtos_Fornecedores_FornecedorId",
+                        column: x => x.FornecedorId,
+                        principalTable: "Fornecedores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -103,13 +90,6 @@ namespace Core.Data.Migrations
                 table: "Enderecos",
                 column: "FornecedorId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Enderecos_PacienteId",
-                table: "Enderecos",
-                column: "PacienteId",
-                unique: true,
-                filter: "[PacienteId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produtos_FornecedorId",
@@ -123,10 +103,10 @@ namespace Core.Data.Migrations
                 name: "Enderecos");
 
             migrationBuilder.DropTable(
-                name: "Produtos");
+                name: "Pacientes");
 
             migrationBuilder.DropTable(
-                name: "Pacientes");
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "Fornecedores");

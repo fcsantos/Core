@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210227134904_Identity")]
+    [Migration("20210303235929_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,29 @@ namespace Core.Api.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b48a773c-1fb2-4eb9-ac31-247615216d37",
+                            ConcurrencyStamp = "217a24ea-bbfe-4ca9-bf75-3555a4f3b0a0",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "39f8817d-7363-420a-898e-1ef65b9f6130",
+                            ConcurrencyStamp = "a70e3e79-c9c5-4632-b0a1-9459d35787a9",
+                            Name = "paciente",
+                            NormalizedName = "PACIENTE"
+                        },
+                        new
+                        {
+                            Id = "55311182-3561-441c-94ff-14f799b8512a",
+                            ConcurrencyStamp = "88dfceff-c44f-4675-9e02-f5f46fe39151",
+                            Name = "medico",
+                            NormalizedName = "MEDICO"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -164,10 +187,12 @@ namespace Core.Api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,10 +229,12 @@ namespace Core.Api.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

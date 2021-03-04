@@ -1,4 +1,6 @@
-﻿namespace Core.Api.Extensions
+﻿using System.Collections.Generic;
+
+namespace Core.Api.Extensions
 {
     public class AppSettings
     {

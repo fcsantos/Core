@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Api.Controllers
@@ -37,11 +38,7 @@ namespace Core.Api.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Novo utilizador
-        /// </summary>
-        /// <param name="registerUser"></param>
-        /// <returns></returns>
+        [Authorize(Roles = "admin")]
         [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
         {

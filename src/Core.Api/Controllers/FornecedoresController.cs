@@ -35,7 +35,7 @@ namespace Core.Api.Controllers
         }
 
         [AllowAnonymous]
-        //[ClaimsAuthorize("Fornecedor", "Obter")]
+        [ClaimsAuthorize("Fornecedor", "Obter")]
         [HttpGet]
         public async Task<IEnumerable<FornecedorViewModel>> ObterTodos()
         {
