@@ -60,17 +60,5 @@ namespace Core.Api.Configuration
                 }
             }
         }
-        //var hasher = new PasswordHasher<IdentityUser>();
-        //var user = new IdentityUser
-        //{
-        //    Id = "a69b5f6b-cc99-4e4d-a068-82781db535ee", // primary key
-        //    UserName = _Configuration.GetValue<string>("AppSettings:EmailAdmin"),
-        //    Email = _Configuration.GetValue<string>("AppSettings:EmailAdmin"),
-        //    NormalizedUserName = "ADMIN",
-        //    PasswordHash = hasher.HashPassword(null, "Fc@123456"),
-        //    EmailConfirmed = true
-        //};
-        ////user.PasswordHash = hasher.HashPassword(user, "123456");
-        //builder.Entity<IdentityUser>().HasData(user);
     }
 }

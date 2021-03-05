@@ -1,4 +1,6 @@
 using AutoMapper;
+using Core.Api.Configuration;
+using Core.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -6,10 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Core.Api.Configuration;
-using Core.Data.Context;
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace Core.Api
 {
