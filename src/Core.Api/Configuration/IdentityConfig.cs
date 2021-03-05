@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Core.Api.Data;
 using Core.Api.Extensions;
 using System.Text;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Core.Api.Configuration
 {
@@ -31,6 +32,9 @@ namespace Core.Api.Configuration
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
 
             services.AddAuthentication(x =>
             {

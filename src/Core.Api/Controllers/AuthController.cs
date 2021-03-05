@@ -1,18 +1,41 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Core.Api.Extensions;
-using Core.Api.ViewModels;
-using Core.Business.Intefaces;
+﻿//using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.Extensions.Options;
+//using Microsoft.IdentityModel.Tokens;
+//using Core.Api.Extensions;
+//using Core.Api.ViewModels;
+//using Core.Business.Intefaces;
+//using System;
+//using System.IdentityModel.Tokens.Jwt;
+//using System.Linq;
+//using System.Security.Claims;
+//using System.Text;
+//using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.Extensions.Logging;
+//using System.Text.Encodings.Web;
+//using Microsoft.AspNetCore.Identity.UI.Services;
+//using Microsoft.AspNetCore.WebUtilities;
+
+
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Api.Extensions;
+using Core.Api.ViewModels;
+using Core.Business.Intefaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Text.Encodings.Web;
 
 namespace Core.Api.Controllers
 {
@@ -24,18 +47,21 @@ namespace Core.Api.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
         private readonly ILogger _logger;
+        private readonly IEmailSender _emailSender;
 
         public AuthController(INotificador notificador,
                               SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
                               IUser user,
-                              ILogger<AuthController> logger) : base(notificador, user)
+                              ILogger<AuthController> logger, 
+                              IEmailSender emailSender) : base(notificador, user)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
             _logger = logger;
+            _emailSender = emailSender;
         }
 
         [Authorize(Roles = "admin")]
@@ -63,6 +89,57 @@ namespace Core.Api.Controllers
             }
 
             return CustomResponse(registerUser);
+        }
+
+        [HttpPost("esqueci-minha-senha")]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel input)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var user = await _userManager.FindByEmailAsync(input.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                NotificarErro("Se você possui uma conta conosco, enviamos um e-mail com as instruções para redefinir sua senha.");
+                return CustomResponse(input);
+            }
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+            var callbackUrl = string.Format("{0}?code={1}", _appSettings.Url,code);
+
+            await _emailSender.SendEmailAsync(
+                input.Email,
+                "Redefinir senha",
+                $"Redefina sua senha clicando no link: { HtmlEncoder.Default.Encode(callbackUrl)}");
+
+            return CustomResponse(input);
+        }
+
+        [HttpPost("redefinir-senha")]
+        public async Task<ActionResult<ResetPasswordViewModel>> ResetPassword(ResetPasswordViewModel input)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var user = await _userManager.FindByEmailAsync(input.Email);
+            if (user == null)
+            {
+                NotificarErro("Se você possui uma conta conosco, enviamos um e-mail com as instruções para redefinir sua senha.");
+                return CustomResponse(input);
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(input.Code)), input.Password);
+            if (result.Succeeded)
+            {
+                return CustomResponse("Senha alterada com sucesso.");
+            }
+            else
+            {
+                NotificarErro(result.Errors.FirstOrDefault().Description);
+                return CustomResponse(input);
+            }
+
+            return CustomResponse(input);
         }
 
 

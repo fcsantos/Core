@@ -15,5 +15,7 @@ namespace Core.Api.Extensions
 
         //em quais urls o token é válido
         public string ValidoEm { get; set; }
+
+        public string Url { get; set; }
     }
 }
