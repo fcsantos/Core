@@ -11,7 +11,7 @@
   * Autenticação e Autorização com Identity
   * JWT
   * Logging
-  * Elmah.io
+  * Elmah.io : https://app.elmah.io/
   * Utilizando o conceito SOLID
   * Arquitetura em 3 camadas
   * Utilizando o conceito de Repository pattern
