@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Api.ViewModels;
 using Core.Business.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Core.Api.Configuration
 {
@@ -16,6 +17,8 @@ namespace Core.Api.Configuration
 
             CreateMap<Produto, ProdutoViewModel>()
                 .ForMember(dest => dest.NomeFornecedor, opt => opt.MapFrom(src => src.Fornecedor.Nome));
+
+            CreateMap<IdentityRole, RoleViewModel>().ReverseMap();
         }
     }
 }

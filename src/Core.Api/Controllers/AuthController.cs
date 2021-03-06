@@ -36,6 +36,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Encodings.Web;
+using System.Collections.Generic;
+using AutoMapper;
 
 namespace Core.Api.Controllers
 {
@@ -45,9 +47,11 @@ namespace Core.Api.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppSettings _appSettings;
         private readonly ILogger _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
 
         public AuthController(INotificador notificador,
                               SignInManager<IdentityUser> signInManager,
@@ -55,13 +59,17 @@ namespace Core.Api.Controllers
                               IOptions<AppSettings> appSettings,
                               IUser user,
                               ILogger<AuthController> logger, 
-                              IEmailSender emailSender) : base(notificador, user)
+                              IEmailSender emailSender, 
+                              IMapper mapper, 
+                              RoleManager<IdentityRole> roleManager) : base(notificador, user)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
             _logger = logger;
             _emailSender = emailSender;
+            _mapper = mapper;
+            _roleManager = roleManager;
         }
 
         [Authorize(Roles = "admin")]
@@ -231,5 +239,12 @@ namespace Core.Api.Controllers
 
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("roles")]
+        public async Task<IEnumerable<RoleViewModel>> ObterTodos()
+        {
+            return _mapper.Map<IEnumerable<RoleViewModel>>(_roleManager.Roles);
+        }
     }
 }
