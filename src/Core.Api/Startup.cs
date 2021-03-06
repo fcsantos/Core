@@ -1,5 +1,6 @@
 using AutoMapper;
 using Core.Api.Configuration;
+using Core.Api.Extensions;
 using Core.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -70,6 +71,8 @@ namespace Core.Api
             app.UseSwaggerConfig(provider);
 
             app.UseLoggingConfiguration();
+
+
         }
     }
 }
