@@ -45,7 +45,6 @@ namespace Core.Api.Configuration
                             userManager.AddToRoleAsync(user, configuration["AppUserAdmin:Role"]).Wait();
 
                             //add Claim teste
-                            //userManager.AddClaimAsync(user, new Claim(configuration[configuration["ClaimsFornecedor"] + ":ClaimType"].ToString(), configuration[configuration["ClaimsFornecedor"] + ":ClaimValue"].ToString())).Wait();
                             userManager.AddClaimAsync(user, new Claim(configuration["ClaimsFornecedor:ClaimType"], configuration["ClaimsFornecedor:ClaimValue"])).Wait();
 
                             logger.LogDebug("User admin created a new account with password and add to a role " + configuration["AppUserAdmin:Role"]);

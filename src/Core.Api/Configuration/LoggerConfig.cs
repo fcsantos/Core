@@ -32,17 +32,6 @@ namespace Core.Api.Configuration
                 builder.AddFilter<ElmahIoLoggerProvider>(null, LogLevel.Warning);
             });
 
-            //services.AddHealthChecks()
-            //    .AddElmahIoPublisher(options =>
-            //    {
-            //        options.ApiKey = "da8ff36d13e441ed9dafe01d86136bd0";
-            //        options.LogId = new Guid("d0b9e9ce-94a9-425c-864a-5719f53c0625");
-            //        options.HeartbeatId = "API Fornecedores";
-
-            //    })
-            //    .AddCheck("Produtos", new SqlServerHealthCheck(configuration.GetConnectionString("DefaultConnection")))
-            //    .AddSqlServer(configuration.GetConnectionString("DefaultConnection"), name: "BancoSQL");
-
             return services;
         }
 

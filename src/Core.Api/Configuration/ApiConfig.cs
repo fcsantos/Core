@@ -55,8 +55,6 @@ namespace Core.Api.Configuration
                             .AllowAnyHeader());
             });
 
-            services.AddHealthChecksUI();
-
             return services;
         }
 

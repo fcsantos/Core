@@ -27,8 +27,8 @@ namespace Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
-                    Apelido = table.Column<string>(nullable: true)
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Apelido = table.Column<string>(type: "varchar(100)", nullable: true)
                 },
                 constraints: table =>
                 {

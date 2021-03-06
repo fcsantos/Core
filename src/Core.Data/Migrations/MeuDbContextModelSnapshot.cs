@@ -98,10 +98,10 @@ namespace Core.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Apelido")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
