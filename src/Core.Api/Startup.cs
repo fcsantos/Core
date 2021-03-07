@@ -16,6 +16,8 @@ namespace Core.Api
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IHostEnvironment hostEnvironment)
         {
             var builder = new ConfigurationBuilder()
@@ -32,9 +34,6 @@ namespace Core.Api
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MeuDbContext>(options =>
@@ -66,9 +65,9 @@ namespace Core.Api
 
             Initialize.SeedUserAdmin(Configuration.GetSection("Roles").Get<List<string>>(), Configuration, app.ApplicationServices, loggerFactory).Wait();
 
-            app.UseApiConfig(env);
-
             app.UseSwaggerConfig(provider);
+
+            app.UseApiConfig(env);
 
             app.UseLoggingConfiguration();
 

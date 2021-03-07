@@ -8,6 +8,7 @@ using Core.Api.Data;
 using Core.Api.Extensions;
 using System.Text;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Builder;
 
 namespace Core.Api.Configuration
 {
@@ -21,9 +22,14 @@ namespace Core.Api.Configuration
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddErrorDescriber<IdentityMensagensPortugues>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            // Email
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
 
             // JWT
 
@@ -33,18 +39,15 @@ namespace Core.Api.Configuration
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
-
-            services.AddAuthentication(x =>
+            services.AddAuthentication(options =>
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
             {
-                x.RequireHttpsMetadata = true; //garantia que eu só vou trabalhar com https(evitar ataque "main the meddle")
-                x.SaveToken = true; //Token deve ser guardado no http authentication properties
-                x.TokenValidationParameters = new TokenValidationParameters
+                bearerOptions.RequireHttpsMetadata = true; //garantia que eu só vou trabalhar com https(evitar ataque "main the meddle")
+                bearerOptions.SaveToken = true; //Token deve ser guardado no http authentication properties
+                bearerOptions.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
@@ -56,6 +59,14 @@ namespace Core.Api.Configuration
             });
 
             return services;
+        }
+
+        public static IApplicationBuilder UseIdentityConfiguration(this IApplicationBuilder app)
+        {
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            return app;
         }
     }
 }

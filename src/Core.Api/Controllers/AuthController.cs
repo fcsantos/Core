@@ -1,24 +1,4 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Extensions.Options;
-//using Microsoft.IdentityModel.Tokens;
-//using Core.Api.Extensions;
-//using Core.Api.ViewModels;
-//using Core.Business.Intefaces;
-//using System;
-//using System.IdentityModel.Tokens.Jwt;
-//using System.Linq;
-//using System.Security.Claims;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.Extensions.Logging;
-//using System.Text.Encodings.Web;
-//using Microsoft.AspNetCore.Identity.UI.Services;
-//using Microsoft.AspNetCore.WebUtilities;
-
-
-using System;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -88,7 +68,7 @@ namespace Core.Api.Controllers
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
+                //await _signInManager.SignInAsync(user, false);
                 return CustomResponse(await GerarJwt(registerUser.Email));
             }
             foreach (var error in result.Errors)
@@ -171,23 +151,6 @@ namespace Core.Api.Controllers
 
             NotificarErro("Usuário ou Senha incorretos");
             return CustomResponse(loginUser);
-        }
-
-        private string GerarJwt()
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
-            {
-                Issuer = _appSettings.Emissor,
-                Audience = _appSettings.ValidoEm,
-                Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-            });
-
-            var encondedToken = tokenHandler.WriteToken(token);
-
-            return encondedToken;
         }
 
         private async Task<LoginResponseViewModel> GerarJwt(string email)
