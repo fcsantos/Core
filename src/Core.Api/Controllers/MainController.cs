@@ -4,6 +4,7 @@ using Core.Business.Intefaces;
 using Core.Business.Notificacoes;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Core.Api.Controllers
 {
@@ -44,12 +45,15 @@ namespace Core.Api.Controllers
                     data = result
                 });
             }
-
-            return BadRequest(new
+            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                success = false,
-                errors = _notificador.ObterNotificacoes().Select(n => n.Mensagem)
-            });
+                { "Mensagens", _notificador.ObterNotificacoes().Select(n => n.Mensagem).ToArray() }
+            }));
+            //return BadRequest(new
+            //{
+            //    success = false,
+            //    errors = _notificador.ObterNotificacoes().Select(n => n.Mensagem)
+            //});
         }
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)

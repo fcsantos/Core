@@ -1,6 +1,5 @@
 using AutoMapper;
 using Core.Api.Configuration;
-using Core.Api.Extensions;
 using Core.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
