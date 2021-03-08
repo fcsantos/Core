@@ -34,7 +34,6 @@ namespace Core.Api.Controllers
             _enderecoRepository = enderecoRepository;
         }
 
-        //[AllowAnonymous]
         [ClaimsAuthorize("Fornecedor", "Obter")]
         [HttpGet]
         public async Task<IEnumerable<FornecedorViewModel>> ObterTodos()

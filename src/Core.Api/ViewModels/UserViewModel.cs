@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Permissions;
 
 namespace Core.Api.ViewModels
 {
@@ -17,6 +16,9 @@ namespace Core.Api.ViewModels
 
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Role { get; set; }
     }
 
     public class LoginUserViewModel

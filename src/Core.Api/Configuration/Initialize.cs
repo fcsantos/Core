@@ -28,7 +28,6 @@ namespace Core.Api.Configuration
 
                     try
                     {
-
                         RoleManager<IdentityRole> roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                         UserManager<IdentityUser> userManager = serviceScope.ServiceProvider.GetService<UserManager<IdentityUser>>();
                         var user = new IdentityUser { UserName = configuration["AppUserAdmin:UserName"], Email = configuration["AppUserAdmin:Email"], EmailConfirmed = Convert.ToBoolean(configuration["AppUserAdmin:EmailConfirmed"]) };

@@ -52,7 +52,6 @@ namespace Core.Api.Controllers
             _roleManager = roleManager;
         }
 
-        //[Authorize(Roles = "admin")]
         [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
         {
@@ -68,8 +67,10 @@ namespace Core.Api.Controllers
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (result.Succeeded)
             {
-                //await _signInManager.SignInAsync(user, false);
-                return CustomResponse(await GerarJwt(registerUser.Email));
+                //add Role
+                var resultRole = await _userManager.AddToRoleAsync(user, registerUser.Role);
+                if (resultRole.Succeeded)
+                    return CustomResponse(await GerarJwt(registerUser.Email));
             }
             foreach (var error in result.Errors)
             {
