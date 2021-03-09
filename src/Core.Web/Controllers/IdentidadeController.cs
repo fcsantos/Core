@@ -1,4 +1,5 @@
-﻿using Core.Web.Models;
+﻿using Core.Web.Extensions;
+using Core.Web.Models;
 using Core.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,16 +10,22 @@ namespace Core.Web.Controllers
     public class IdentidadeController : MainController
     {
         private readonly IAutenticacaoService _autenticacaoService;
+        private readonly IAspNetUser _aspNetUser;
 
-        public IdentidadeController(IAutenticacaoService autenticacaoService)
+        public IdentidadeController(IAutenticacaoService autenticacaoService, 
+                                    IAspNetUser aspNetUser)
         {
             _autenticacaoService = autenticacaoService;
+            _aspNetUser = aspNetUser;
         }
 
         [HttpGet]
         [Route("nova-conta")]
         public IActionResult Registro()
         {
+            if (!_aspNetUser.PossuiRoleAdmin())
+                return new StatusCodeResult(404);
+
             ViewData["SelectListRoles"] = new SelectList(_autenticacaoService.GetRoles(), "Name", "Name", null);
 
             return View();
