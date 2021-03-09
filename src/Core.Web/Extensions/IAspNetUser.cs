@@ -14,6 +14,7 @@ namespace Core.Web.Extensions
         string ObterUserRefreshToken();
         bool EstaAutenticado();
         bool PossuiRole(string role);
+        bool PossuiRoleAdmin();
         IEnumerable<Claim> ObterClaims();
         HttpContext ObterHttpContext();
     }

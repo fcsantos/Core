@@ -1,6 +1,7 @@
 ﻿using Core.Web.Models;
 using Core.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
 namespace Core.Web.Controllers
@@ -18,6 +19,8 @@ namespace Core.Web.Controllers
         [Route("nova-conta")]
         public IActionResult Registro()
         {
+            ViewData["SelectListRoles"] = new SelectList(_autenticacaoService.GetRoles(), "Name", "Name", null);
+
             return View();
         }
 
@@ -29,7 +32,11 @@ namespace Core.Web.Controllers
 
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
-            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
+            if (ResponsePossuiErros(resposta.ResponseResult))
+            {
+                ViewData["SelectListRoles"] = new SelectList(_autenticacaoService.GetRoles(), "Name", "Name", null);
+                return View(usuarioRegistro);
+            }
 
             await _autenticacaoService.RealizarLogin(resposta);
 

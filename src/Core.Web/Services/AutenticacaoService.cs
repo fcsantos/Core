@@ -24,9 +24,8 @@ namespace Core.Web.Services
                                    IAuthenticationService authenticationService,
                                    IAspNetUser user)
         {
-            httpClient.BaseAddress = new Uri(settings.Value.APICoreUrl);
-
             _httpClient = httpClient;
+            httpClient.BaseAddress = new Uri(settings.Value.APICoreUrl);
             _user = user;
             _authenticationService = authenticationService;
         }
@@ -35,7 +34,7 @@ namespace Core.Web.Services
         {
             var loginContent = ObterConteudo(usuarioLogin);
 
-            var response = await _httpClient.PostAsync("https://localhost:5001/api/v1/entrar", loginContent);
+            var response = await _httpClient.PostAsync("/api/v1/entrar", loginContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -52,7 +51,7 @@ namespace Core.Web.Services
         {
             var registroContent = ObterConteudo(usuarioRegistro);
 
-            var response = await _httpClient.PostAsync("https://localhost:5001/api/v1/nova-conta", registroContent);
+            var response = await _httpClient.PostAsync("/api/v1/nova-conta", registroContent);
 
             if (!TratarErrosResponse(response))
             {
@@ -99,6 +98,15 @@ namespace Core.Web.Services
                 _user.ObterHttpContext(),
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 null);
+        }
+
+        public IEnumerable<RoleViewModel> GetRoles()
+        {
+            var response = _httpClient.GetAsync("/api/v1/roles").Result;
+
+            TratarErrosResponse(response);
+
+            return DeserializarObjetoResponse<IEnumerable<RoleViewModel>>(response).Result;
         }
     }
 }

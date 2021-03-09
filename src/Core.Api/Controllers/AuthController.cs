@@ -204,7 +204,6 @@ namespace Core.Api.Controllers
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
 
-        [Authorize(Roles = "admin")]
         [HttpGet("roles")]
         public async Task<IEnumerable<RoleViewModel>> ObterTodos()
         {

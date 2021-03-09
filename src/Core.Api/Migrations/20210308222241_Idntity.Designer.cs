@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210303235929_Identity")]
-    partial class Identity
+    [Migration("20210308222241_Idntity")]
+    partial class Idntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,24 +50,24 @@ namespace Core.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b48a773c-1fb2-4eb9-ac31-247615216d37",
-                            ConcurrencyStamp = "217a24ea-bbfe-4ca9-bf75-3555a4f3b0a0",
+                            Id = "3d19eb52-0082-468e-be4e-d2d5bb583894",
+                            ConcurrencyStamp = "645f31bb-4617-43c5-8c07-1af748c4d6a1",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "39f8817d-7363-420a-898e-1ef65b9f6130",
-                            ConcurrencyStamp = "a70e3e79-c9c5-4632-b0a1-9459d35787a9",
-                            Name = "paciente",
-                            NormalizedName = "PACIENTE"
+                            Id = "6cfa1215-4800-4d72-845d-bb45cad426a1",
+                            ConcurrencyStamp = "ad4b34b3-e59e-40fb-bda1-5a00f5cf5ff2",
+                            Name = "user",
+                            NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "55311182-3561-441c-94ff-14f799b8512a",
-                            ConcurrencyStamp = "88dfceff-c44f-4675-9e02-f5f46fe39151",
-                            Name = "medico",
-                            NormalizedName = "MEDICO"
+                            Id = "3e007b3b-a28d-4f39-bff0-f5bf7bce574d",
+                            ConcurrencyStamp = "c8c7b1fb-c63b-4ddf-b390-3d7131d05d8e",
+                            Name = "geral",
+                            NormalizedName = "GERAL"
                         });
                 });
 

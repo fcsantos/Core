@@ -25,17 +25,17 @@ namespace Core.Web.Extensions
 
         public string ObterUserEmail()
         {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserEmail() : "";
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserEmail() : string.Empty;
         }
 
         public string ObterUserToken()
         {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : "";
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : string.Empty;
         }
 
         public string ObterUserRefreshToken()
         {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserRefreshToken() : "";
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserRefreshToken() : string.Empty;
         }
 
         public bool EstaAutenticado()
@@ -46,6 +46,11 @@ namespace Core.Web.Extensions
         public bool PossuiRole(string role)
         {
             return _accessor.HttpContext.User.IsInRole(role);
+        }
+
+        public bool PossuiRoleAdmin()
+        {
+            return _accessor.HttpContext.User.GetUserRole() == "admin" ? true : false;   
         }
 
         public IEnumerable<Claim> ObterClaims()
@@ -102,6 +107,17 @@ namespace Core.Web.Extensions
             }
 
             var claim = principal.FindFirst("RefreshToken");
+            return claim?.Value;
+        }
+
+        public static string GetUserRole(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new ArgumentException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("role");
             return claim?.Value;
         }
     }

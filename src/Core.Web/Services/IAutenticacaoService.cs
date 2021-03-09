@@ -1,4 +1,5 @@
 ﻿using Core.Web.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Core.Web.Services
@@ -12,5 +13,7 @@ namespace Core.Web.Services
         Task RealizarLogin(UsuarioRespostaLogin resposta);
 
         Task Logout();
+
+        IEnumerable<RoleViewModel> GetRoles();
     }
 }

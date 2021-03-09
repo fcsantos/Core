@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Core.Api.Migrations
 {
-    public partial class Identity : Migration
+    public partial class Idntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -155,17 +155,17 @@ namespace Core.Api.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b48a773c-1fb2-4eb9-ac31-247615216d37", "217a24ea-bbfe-4ca9-bf75-3555a4f3b0a0", "admin", "ADMIN" });
+                values: new object[] { "3d19eb52-0082-468e-be4e-d2d5bb583894", "645f31bb-4617-43c5-8c07-1af748c4d6a1", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "39f8817d-7363-420a-898e-1ef65b9f6130", "a70e3e79-c9c5-4632-b0a1-9459d35787a9", "paciente", "PACIENTE" });
+                values: new object[] { "6cfa1215-4800-4d72-845d-bb45cad426a1", "ad4b34b3-e59e-40fb-bda1-5a00f5cf5ff2", "user", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "55311182-3561-441c-94ff-14f799b8512a", "88dfceff-c44f-4675-9e02-f5f46fe39151", "medico", "MEDICO" });
+                values: new object[] { "3e007b3b-a28d-4f39-bff0-f5bf7bce574d", "c8c7b1fb-c63b-4ddf-b390-3d7131d05d8e", "geral", "GERAL" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

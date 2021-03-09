@@ -19,6 +19,10 @@ namespace Core.Web.Models
         [DisplayName("Confirme sua senha")]
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [Display(Name = "Perfil")]
+        public string Role { get; set; }
     }
 
     public class UsuarioLogin
