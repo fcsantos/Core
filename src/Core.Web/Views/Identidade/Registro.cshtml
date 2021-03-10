@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Registro de novo usuário";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
 <section class="section-conten padding-y container" style="min-height: 35vh">
@@ -12,6 +13,8 @@
 
         <div class="card-body">
             <h4 class="card-title mb-4">Seja bem vindo!</h4>
+            <br/>
+            <br/>
 
             <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
 
@@ -36,7 +39,7 @@
                 <div class="form-group">
                     <label asp-for="Role"></label>
                     <select asp-for="Role" class="form-control" asp-items="ViewBag.SelectListRoles">
-                        <option value="">-- Select Role --</option>
+                        <option value="">-- Selecione Perfil --</option>
                     </select>
                     <span asp-validation-for="Role" class="text-danger"></span>
                 </div>

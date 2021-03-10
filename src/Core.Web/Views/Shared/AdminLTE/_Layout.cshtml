@@ -1,0 +1,41 @@
+﻿@using Core.Web.Extensions
+
+@inject IAspNetUser AppUser
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>@ViewData["Title"] - Core.Web</title>
+
+    <title>Lusodata Framework 2.0</title>
+    <partial name="AdminLTE/_Styles" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <partial name="AdminLTE/_TopBar" />
+        <partial name="AdminLTE/_MainMenu" />
+        <div class="content-wrapper">
+            <div class="content-header">
+                <partial name="AdminLTE/_Breadcrumb" />
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="p-3">
+                <h5>Titulo</h5>
+                <p>Barra Lateral</p>
+            </div>
+        </aside>
+        <partial name="AdminLTE/_Footer" />
+    </div>
+    <partial name="AdminLTE/_Scripts" />
+@RenderSection("Scripts", required: false)
+</body>
+</html>

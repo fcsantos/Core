@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Core.Web.Models.FornecedorViewModel>
+
+@{
+    ViewData["Title"] = "Fornecedores";
+}
+
+<h1>Fornecedores</h1>
+<a asp-controller="Fornecedor" asp-action="Create" class="btn btn-primary float-md-right"> Criar novo Fornecedor<i class="fa fa-chevron-right"></i></a>
+<br />
+<br />
+<br />
+<br />
+<section class="padding-y">
+    <div id="event" class="container">
+        <vc:Summary></vc:Summary>
+        @if (Model.Any())
+        {
+            <table id="table" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Documento</th>
+                    <th>Ativo</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var fornecedor in Model)
+                {
+                    <tr>
+                        <td>@fornecedor.Id.ToString()</td>
+                        <td>@fornecedor.Nome</td>
+                        <td>@fornecedor.Documento</td>
+                        <td>@fornecedor.Ativo</td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Fornecedor" asp-action="Edit" asp-route-id="@fornecedor.Id">Editar</a> |
+                            <button id="Delete" name="@fornecedor.Id" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="right" title="Deletar">Deletar</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Não existe fornecedor cadastrado</p>
+        }
+    </div>
+</section>
