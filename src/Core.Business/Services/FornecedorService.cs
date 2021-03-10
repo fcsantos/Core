@@ -25,8 +25,7 @@ namespace Core.Business.Services
 
         public async Task Adicionar(Fornecedor fornecedor)
         {
-            if (!ExecutarValidacao(new FornecedorValidation(), fornecedor) 
-                || !ExecutarValidacao(new EnderecoValidation(), fornecedor.Endereco)) return;
+            if (!ExecutarValidacao(new FornecedorValidation(), fornecedor)) return;
 
             if (_fornecedorRepository.Buscar(f => f.Documento == fornecedor.Documento).Result.Any())
             {

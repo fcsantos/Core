@@ -1,4 +1,5 @@
-﻿using Core.Web.Services;
+﻿using Core.Web.Extensions;
+using Core.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -13,12 +14,10 @@ namespace Core.Web.Controllers
             _fornecedorService = fornecedorService;
         }
 
-        [Route("fornecedor")]
+        [ClaimsAuthorize("Fornecedor", "Obter")]
         public async Task<IActionResult> Index()
         {
-            var fornecedores = await _fornecedorService.Obter();
-
-            return View();
+            return View(await _fornecedorService.Obter());
         }
     }
 }

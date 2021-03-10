@@ -39,21 +39,12 @@ namespace Core.Api.Controllers
         {
             if (OperacaoValida())
             {
-                return Ok(new
-                {
-                    success = true,
-                    data = result
-                });
+                return Ok(result);
             }
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
                 { "Mensagens", _notificador.ObterNotificacoes().Select(n => n.Mensagem).ToArray() }
             }));
-            //return BadRequest(new
-            //{
-            //    success = false,
-            //    errors = _notificador.ObterNotificacoes().Select(n => n.Mensagem)
-            //});
         }
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)

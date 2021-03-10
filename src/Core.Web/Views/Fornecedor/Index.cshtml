@@ -1,3 +1,50 @@
-﻿@{
+﻿@model IEnumerable<Core.Web.Models.FornecedorViewModel>
+
+@{
     ViewData["Title"] = "Fornecedores";
 }
+
+<h1>Fornecedores</h1>
+
+<section class="padding-y">
+    <div class="container">
+
+        <vc:Summary></vc:Summary>
+        @if (Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Documento</th>
+                        <th>TipoFornecedor</th>
+                        <th>Ativo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fornecedor in Model)
+                    {
+                        <tr>
+                            <td>@fornecedor.Id.ToString()</td>
+                            <td>@fornecedor.Nome</td>
+                            <td>@fornecedor.Documento</td>
+                            <td>@fornecedor.TipoFornecedor</td>
+                            <td>@fornecedor.Ativo</td>
+                            <td>
+                                @*<a asp-page="./Edit" asp-route-id="@fornecedor.Id">Edit</a> |
+                                    <button type="submit" asp-page-handler="delete" asp-route-id="@fornecedor.Id">delete</button>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Não existe fornecedor cadastrado</p>
+        }
+    </div>
+</section>
+@*<a asp-page="Create">Create New</a>*@

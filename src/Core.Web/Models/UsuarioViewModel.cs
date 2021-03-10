@@ -38,17 +38,10 @@ namespace Core.Web.Models
 
     public class UsuarioRespostaLogin
     {
-        public bool success { get; set; }
-        public UsuarioData data { get; set; }
-        public ResponseResult ResponseResult { get; set; }
-    }
-
-    public class UsuarioData
-    {
         public string AccessToken { get; set; }
         public double ExpiresIn { get; set; }
         public UsuarioToken UserToken { get; set; }
-        
+        public ResponseResult ResponseResult { get; set; }
     }
 
     public class UsuarioToken
