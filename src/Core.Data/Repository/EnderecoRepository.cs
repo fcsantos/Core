@@ -16,11 +16,5 @@ namespace Core.Data.Repository
             return await Db.Enderecos.AsNoTracking()
                 .FirstOrDefaultAsync(f => f.FornecedorId == fornecedorId);
         }
-
-        public async Task<Endereco> ObterEnderecoPorPaciente(Guid pacienteId)
-        {
-            return await Db.Enderecos.AsNoTracking()
-                .FirstOrDefaultAsync(p => p.PacienteId == pacienteId);
-        }
     }
 }

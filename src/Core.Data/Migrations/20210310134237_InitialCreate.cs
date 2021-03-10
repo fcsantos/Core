@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Core.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,25 +23,11 @@ namespace Core.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pacientes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Nome = table.Column<string>(type: "varchar(100)", nullable: true),
-                    Apelido = table.Column<string>(type: "varchar(100)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pacientes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Enderecos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     FornecedorId = table.Column<Guid>(nullable: false),
-                    PacienteId = table.Column<Guid>(nullable: true),
                     Logradouro = table.Column<string>(type: "varchar(200)", nullable: false),
                     Numero = table.Column<string>(type: "varchar(50)", nullable: false),
                     Complemento = table.Column<string>(type: "varchar(250)", nullable: true),
@@ -101,9 +87,6 @@ namespace Core.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Enderecos");
-
-            migrationBuilder.DropTable(
-                name: "Pacientes");
 
             migrationBuilder.DropTable(
                 name: "Produtos");

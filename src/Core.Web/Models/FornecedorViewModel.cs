@@ -17,6 +17,7 @@ namespace Core.Web.Models
         [StringLength(14, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 11)]
         public string Documento { get; set; }
 
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int TipoFornecedor { get; set; }
 
         public EnderecoViewModel Endereco { get; set; }

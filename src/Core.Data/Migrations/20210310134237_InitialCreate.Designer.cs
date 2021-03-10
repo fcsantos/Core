@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.Data.Migrations
 {
     [DbContext(typeof(MeuDbContext))]
-    [Migration("20210306003259_Initial")]
-    partial class Initial
+    [Migration("20210310134237_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,9 +57,6 @@ namespace Core.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<Guid?>("PacienteId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FornecedorId")
@@ -91,23 +88,6 @@ namespace Core.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Fornecedores");
-                });
-
-            modelBuilder.Entity("Core.Business.Models.Paciente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Apelido")
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pacientes");
                 });
 
             modelBuilder.Entity("Core.Business.Models.Produto", b =>
