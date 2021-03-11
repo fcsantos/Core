@@ -19,6 +19,26 @@ namespace Core.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Core.Business.Models.Categoria", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CategoriaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("Categorias");
+                });
+
             modelBuilder.Entity("Core.Business.Models.Endereco", b =>
                 {
                     b.Property<Guid>("Id")
@@ -123,6 +143,13 @@ namespace Core.Data.Migrations
                     b.HasIndex("FornecedorId");
 
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("Core.Business.Models.Categoria", b =>
+                {
+                    b.HasOne("Core.Business.Models.Categoria", "SubCategoria")
+                        .WithMany("SubCategorias")
+                        .HasForeignKey("CategoriaId");
                 });
 
             modelBuilder.Entity("Core.Business.Models.Endereco", b =>

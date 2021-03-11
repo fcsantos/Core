@@ -8,6 +8,25 @@ namespace Core.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Categorias",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CategoriaId = table.Column<Guid>(nullable: true),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categorias", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categorias_Categorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categorias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Fornecedores",
                 columns: table => new
                 {
@@ -72,6 +91,11 @@ namespace Core.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categorias_CategoriaId",
+                table: "Categorias",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Enderecos_FornecedorId",
                 table: "Enderecos",
                 column: "FornecedorId",
@@ -85,6 +109,9 @@ namespace Core.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Categorias");
+
             migrationBuilder.DropTable(
                 name: "Enderecos");
 
