@@ -13,12 +13,6 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a class="nav-link text-dark" asp-controller="Identidade" asp-action="Logout">Sair</a>
             </li>
-            @if (AppUser.PossuiRoleAdmin())
-            {
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link text-dark" asp-controller="Identidade" asp-action="Registro">Utilizador</a>
-                </li>
-            }
         }
         else
         {

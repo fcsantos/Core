@@ -1,11 +1,9 @@
 ﻿@model Core.Web.Models.FornecedorViewModel
 
 @{
-    ViewData["Title"] = "Editar Fornececor";
+    ViewData["Title"] = $"Editar Fornecedor {Model.Nome}";
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
-
-<h1>Editar Fornecedor @ViewBag.Fornecedor</h1>
 
 <hr />
 <div class="row">
