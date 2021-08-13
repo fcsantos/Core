@@ -3,7 +3,7 @@
 namespace Core.Api.Extensions
 {
     //Globalização
-    public class IdentityMensagensPortugues : IdentityErrorDescriber
+    public class IdentityMensagensPortugues : IdentityErrorDescriber 
     {
         public override IdentityError DefaultError() { return new IdentityError { Code = nameof(DefaultError), Description = $"Ocorreu um erro desconhecido." }; }
         public override IdentityError ConcurrencyFailure() { return new IdentityError { Code = nameof(ConcurrencyFailure), Description = "Falha de concorrência otimista, o objeto foi modificado." }; }

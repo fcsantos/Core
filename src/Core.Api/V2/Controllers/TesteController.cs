@@ -13,7 +13,7 @@ namespace Core.Api.V2.Controllers
     {
         private readonly ILogger _logger;
 
-        public TesteController(INotificador notificador, 
+        public TesteController(INotifier notificador, 
                                IUser appUser,
                                ILogger<TesteController> logger) : base(notificador, appUser)
         {

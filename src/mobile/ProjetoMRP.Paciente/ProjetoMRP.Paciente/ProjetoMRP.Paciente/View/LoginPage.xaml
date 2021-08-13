@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="ProjetoMRP.Paciente.View.LoginPage"
+             xmlns:renderers="clr-namespace:ProjetoMRP.Paciente.Renderers"
+             xmlns:pkView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             BackgroundColor="{StaticResource FirstColor}"
+             >
+
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout >
+
+            <Image Source="bgImage1" HorizontalOptions="Center" WidthRequest="120" />
+
+            <Label
+                Margin="10,10,0,10"
+                FontAttributes="Bold"
+                FontSize="30"
+                Text="MRP Login"
+                TextColor="White"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"/>
+
+            <pkView:PancakeView
+            Margin="0,0,0,0"
+            Padding="30,45,30,15"
+            BackgroundColor="White"
+            CornerRadius="25,25,0,0"
+            VerticalOptions="FillAndExpand">
+                <StackLayout>
+                    <StackLayout Spacing="15">
+                        <Label
+                            Margin="0,0,0,0"
+                            FontSize="16"
+                            Text="Email"
+                            TextColor="#484848" />
+
+                        <pkView:PancakeView
+                            Padding="20,0,0,0"
+                            VerticalOptions="Center"
+                            BackgroundColor="White"
+                            CornerRadius="25"
+                            HeightRequest="50">
+
+                            <pkView:PancakeView.Border>
+                                <pkView:Border Thickness="2" Color="#5A72ED" />
+                            </pkView:PancakeView.Border>
+
+                            <renderers:BorderlessEntry x:Name="txtUserName" Text="{Binding username}" Keyboard="Email" ReturnType="Next" />
+
+                        </pkView:PancakeView>
+                    </StackLayout>
+
+                    <StackLayout Spacing="15">
+                        <Label
+                        Margin="0,15,0,0"
+                        FontSize="16"
+                        Text="Password"
+                        TextColor="#484848" />
+                        <pkView:PancakeView
+                        Padding="20,0,0,0"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        CornerRadius="25"
+                        HeightRequest="50">
+
+                            <pkView:PancakeView.Border>
+                                <pkView:Border Thickness="2" Color="#5A72ED" />
+                            </pkView:PancakeView.Border>
+
+                            <renderers:BorderlessEntry x:Name="txtPassword" Text="{Binding password}" IsPassword="True" ReturnType="Done" />
+
+                        </pkView:PancakeView>
+
+                    </StackLayout>
+                    <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="None"
+                    FontSize="15"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Esqueci-me da Password..."
+                    TextColor="#99A1B3">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ForgotPass"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <pkView:PancakeView
+                    Margin="0,15,0,0"
+                    BackgroundColor="{StaticResource FirstColor}"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="150">
+
+                        <pkView:PancakeView.Border>
+                            <pkView:Border Thickness="2" Color="#5A72ED" />
+                        </pkView:PancakeView.Border>
+
+                        <pkView:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                        </pkView:PancakeView.GestureRecognizers>
+
+                        <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Login"
+                        TextColor="White"
+                        VerticalOptions="CenterAndExpand" >
+
+                        </Label>
+                    </pkView:PancakeView>
+                </StackLayout>
+            </pkView:PancakeView>
+        </StackLayout>
+    </ScrollView>
+
+    <!--<ScrollView>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+            <Image WidthRequest="100" HeightRequest="100" Source="Logolusodata"></Image>
+            <Label Text="Login" HorizontalOptions="Center" FontSize="Large"></Label>
+            <Entry x:Name="txtUserName" Placeholder="Informe o Username" Text="{Binding username}" TextColor="Black"></Entry>
+            <Entry x:Name="txtPassword" Placeholder="Informe a Senha"  Text="{Binding password}" TextColor="Black" IsPassword="True"></Entry>
+            <Button x:Name="btnLogin" Text="Login" Command="{Binding LoginCommand}"></Button>
+        </StackLayout>
+    </ScrollView>-->
+    
+</ContentPage>

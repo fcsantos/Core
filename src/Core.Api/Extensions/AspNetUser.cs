@@ -13,7 +13,7 @@ namespace Core.Api.Extensions
         public AspNetUser(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-        }
+        } 
 
         public string Name => _accessor.HttpContext.User.Identity.Name;
 

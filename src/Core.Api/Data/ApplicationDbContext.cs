@@ -18,13 +18,28 @@ namespace Core.Api.Data
                 },
                 new IdentityRole
                 {
-                    Name = "paciente",
-                    NormalizedName = "PACIENTE"
+                    Name = "user",
+                    NormalizedName = "USER"
+                },
+                new IdentityRole
+                {
+                    Name = "geral",
+                    NormalizedName = "GERAL"
+                },
+                new IdentityRole
+                {
+                    Name = "fornecedor",
+                    NormalizedName = "FORNECEDOR"
                 },
                 new IdentityRole
                 {
                     Name = "medico",
                     NormalizedName = "MEDICO"
+                },
+                new IdentityRole
+                {
+                    Name = "paciente",
+                    NormalizedName = "PACIENTE"
                 }
             );
 

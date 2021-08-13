@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjetoMRP.Paciente.View.InqueritoFormPage"
+             BindingContext="Inquerito">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowDefinitions="*,auto" Padding="20">
+                <StackLayout x:Name="stQuestions" Grid.Row="0" VerticalOptions="FillAndExpand">
+                    <!--Construido em Código-->
+                </StackLayout>
+                <StackLayout VerticalOptions="EndAndExpand">
+                    <Button Grid.Row="1" Text="Responder" x:Name="btnReply" CornerRadius="10" Clicked="Button_Clicked"  />
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Core.Api.Extensions;
 using Core.Business.Intefaces;
-using Core.Business.Notificacoes;
+using Core.Business.Notifications;
 using Core.Business.Services;
 using Core.Data.Context;
 using Core.Data.Repository;
@@ -15,14 +15,22 @@ namespace Core.Api.Configuration
     {
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
-            services.AddScoped<MeuDbContext>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<MyDbContext>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAppControllerRepository, AppControllerRepository>();
+            services.AddScoped<IAppActionRepository, AppActionRepository>();
 
-            services.AddScoped<INotificador, Notificador>();
-            services.AddScoped<IFornecedorService, FornecedorService>();
-            services.AddScoped<IProdutoService, ProdutoService>();
+
+            services.AddScoped<INotifier, Notifier>();
+            services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IAppControllerService, AppControllerService>();
+            services.AddScoped<IAppActionService, AppActionService>();
+
+
+            services.AddScoped<IDapperDbRepository, DapperDbRepository>();            
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();

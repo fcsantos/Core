@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Api.ViewModels;
 using Core.Business.Models;
+using Core.Business.Models.DTO;
 using Microsoft.AspNetCore.Identity;
 
 namespace Core.Api.Configuration
@@ -9,16 +10,25 @@ namespace Core.Api.Configuration
     {
         public AutomapperConfig()
         {
-            CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();
-            CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
-            CreateMap<ProdutoViewModel, Produto>();
+            CreateMap<SupplierViewModel, Supplier>();
+            CreateMap<Supplier, SupplierViewModel>()
+                .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.IsActive ? "Ativo" : "Inativo"));
+            CreateMap<Address, AddressViewModel>().ReverseMap();
 
-            //CreateMap<ProdutoImagemViewModel, Produto>().ReverseMap();
-
-            CreateMap<Produto, ProdutoViewModel>()
-                .ForMember(dest => dest.NomeFornecedor, opt => opt.MapFrom(src => src.Fornecedor.Nome));
+            CreateMap<ProductViewModel, Product>();
+            CreateMap<Product, ProductViewModel>()
+                .ForMember(dest => dest.NameSupplier, opt => opt.MapFrom(src => src.Supplier.Name));
 
             CreateMap<IdentityRole, RoleViewModel>().ReverseMap();
+
+            CreateMap<AppAction, AppActionViewModel>().ReverseMap();
+            CreateMap<AppController, AppControllerViewModel>().ReverseMap();
+
+            CreateMap<AllUsersDto, AllUsersViewModel>().ReverseMap();
+
+            CreateMap<UserClaimsDto, UserClaimsViewModel>().ReverseMap();
+
+            CreateMap<ComboDto, ComboViewModel>().ReverseMap();
         }
     }
 }

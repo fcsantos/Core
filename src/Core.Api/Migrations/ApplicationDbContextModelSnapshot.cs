@@ -48,24 +48,45 @@ namespace Core.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b48a773c-1fb2-4eb9-ac31-247615216d37",
-                            ConcurrencyStamp = "217a24ea-bbfe-4ca9-bf75-3555a4f3b0a0",
+                            Id = "60044d6b-1090-4fb0-aba7-e742a66e7854",
+                            ConcurrencyStamp = "8a3a1496-4832-4fb1-be4f-d7c289807623",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "39f8817d-7363-420a-898e-1ef65b9f6130",
-                            ConcurrencyStamp = "a70e3e79-c9c5-4632-b0a1-9459d35787a9",
-                            Name = "paciente",
-                            NormalizedName = "PACIENTE"
+                            Id = "050352b8-b093-44c0-b21c-5c85fb6c41ff",
+                            ConcurrencyStamp = "10111bed-9f99-4a46-9790-9db20016bb51",
+                            Name = "user",
+                            NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "55311182-3561-441c-94ff-14f799b8512a",
-                            ConcurrencyStamp = "88dfceff-c44f-4675-9e02-f5f46fe39151",
+                            Id = "2392c12b-e118-484c-8f76-ba97018d7003",
+                            ConcurrencyStamp = "12d27640-9a72-432f-9318-92d00e882887",
+                            Name = "geral",
+                            NormalizedName = "GERAL"
+                        },
+                        new
+                        {
+                            Id = "e9dcbae2-13cb-4fbb-9d9c-a31083bdfed1",
+                            ConcurrencyStamp = "b0bec226-1df6-43f3-87f6-23dde6237ab6",
+                            Name = "fornecedor",
+                            NormalizedName = "FORNECEDOR"
+                        },
+                        new
+                        {
+                            Id = "5b4dbe78-4107-4716-8b5d-c7ba078a4b7b",
+                            ConcurrencyStamp = "35750039-535b-4f3c-a8db-5c3ab4d70ccf",
                             Name = "medico",
                             NormalizedName = "MEDICO"
+                        },
+                        new
+                        {
+                            Id = "3418f727-83e8-4d36-a1e5-9f323dbfc0ae",
+                            ConcurrencyStamp = "5f0d052b-b5b0-47da-84f8-5e1dfe5a217a",
+                            Name = "paciente",
+                            NormalizedName = "PACIENTE"
                         });
                 });
 

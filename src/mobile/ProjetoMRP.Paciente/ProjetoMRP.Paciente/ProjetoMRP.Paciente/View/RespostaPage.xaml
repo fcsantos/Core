@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjetoMRP.Paciente.View.RespostaPage"
+             Title="{Binding DoctorName}">
+
+<ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,auto">
+            
+
+            <StackLayout Grid.Row="1" Padding="10,0,40,0" HorizontalOptions="StartAndExpand">
+                <Frame Grid.Row="1" BackgroundColor="LightGray" CornerRadius="15" HasShadow="False">                    
+                    <Grid RowDefinitions="*,auto">
+                        <Label Text="{Binding DateFormat}" Grid.Row="0" HorizontalOptions="Start" FontSize="15" />
+                        <Label Text="{Binding Text}" Grid.Row="1" FontSize="15" />
+                    </Grid>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" x:Name="Responder" Padding="10">
+                <Editor x:Name="txtResposta"
+                        AutoSize="TextChanges" 
+                        Placeholder="Mensagem"                     
+                        TextColor="Black" 
+                        BackgroundColor="AntiqueWhite" 
+                        VerticalOptions="Fill" 
+                        HeightRequest="100"/>
+                <Button x:Name="btnEnviar" Text="Enviar" Clicked="btnEnviar_Clicked" />
+            </StackLayout>
+        
+            <StackLayout Padding="40,0,10,0" Grid.Row="2" x:Name="RespostaPaciente" IsVisible="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" >
+                <Frame BackgroundColor="LightSalmon" CornerRadius="15" HasShadow="False">
+                    <Grid RowDefinitions="*,auto">
+                        <Label x:Name="DataResposta" Grid.Row="0" HorizontalOptions="End"/>
+                        <Label x:Name="ConteudoResposta" Grid.Row="1"/>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

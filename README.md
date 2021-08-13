@@ -1,17 +1,47 @@
-# Api Core
- 
-- Criação de uma WebApi utilizando:
 
-  * WebAPI dotnet core 3.1
-  * Automapper
-  * Entity Framework Core
-  * Documentação com o Swagger
-  * HealthCheck
-  * Version
-  * Autenticação e Autorização com Identity
-  * JWT
-  * Logging
-  * Elmah.io : https://app.elmah.io/
-  * Utilizando o conceito SOLID
-  * Arquitetura em 3 camadas
-  * Utilizando o conceito de Repository pattern
+Repositório para o projeto base em .Net Core. Este é o template principal para todos os projetos Lusodata.
+
+# Lusodata MRP
+
+## Ao fazer o clone do projeto:
+
+1. no "Package Manage Console", digitar:
+
+```Update-Database -Context ApplicationDbContext```
+
+- OBS1: não esquecendo de setar o "default project" como **Core.API**
+
+
+2. no "Package Manage Console", digitar 
+
+```Update-Database -Context MyDbContext```
+
+- OBS2: não esquecendo de setar o "default project" como **Core.Data**
+
+
+## Regras para a Padronização de Controllers
+
+### Exemplo em Operações CRUD
+Verbo | Controller | Action | Definição 
+------------ | ------------- | ------------- | -------------
+GET | /patients | index() | Exibe DataTable
+GET | /patients/{id} | edit(guid id) | Form para edição
+DELETE | /patients/{id} | delete(guid id) | Para excluir um registo
+POST | /patients | create(_view_model) | Para insert ou update
+POST | /patients/enable | enable(_view_model) | Para operações custom
+POST | /patients/disable | disable(_view_model) | Para operações custom
+ 
+Controllers **sempre** no plural.
+Actions **sempre** no singular.
+
+**Atenção:** Commits fora deste padrão serão rejeitados.
+
+Para gerar o scritp da base em sql
+
+no "Package Manage Console", digitar:
+
+Command:
+
+Script-Migration -Context MyDbContext -o .\sql\sql.sql
+
+Script-Migration -Context ApplicationDbContext -o .\sql\sql_identity.sql

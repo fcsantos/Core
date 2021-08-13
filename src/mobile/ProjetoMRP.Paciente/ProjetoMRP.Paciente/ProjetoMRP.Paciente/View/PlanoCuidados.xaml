@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ex="http://xamarin.com/schemas/2020/toolkit" xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             Title="Plano de Cuidados"
+             x:Class="ProjetoMRP.Paciente.View.PlanoCuidados"
+             BackgroundColor="White">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <CollectionView 
+                     Margin="10" 
+                     HorizontalOptions="Start" 
+                     VerticalOptions="Start"
+                     SelectionMode="None" 
+                     x:Name="lst">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                    <pv:PancakeView BackgroundColor="#F5F5F5" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+                            <Grid VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="3" HorizontalOptions="Start" VerticalOptions="FillAndExpand"/>
+                                <ex:Expander Grid.Column="1" IsExpanded="True">
+                                    <ex:Expander.Header>
+                                        <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="5,10,5,5">
+                                            <Grid ColumnDefinitions="3*,2*" RowDefinitions="Auto,Auto,Auto">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding DoctorName}" TextColor="Black" FontAttributes="Bold" FontSize="18" />
+                                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding DateFormat, StringFormat='{0:dd/MM/yyyy}'}" TextColor="Black" FontSize="14" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"/>
+                                                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" TextColor="Black" FontSize="18" Padding="0" VerticalTextAlignment="Center"/>
+                                            </Grid>
+                                        </StackLayout>                                            
+                                    </ex:Expander.Header>
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding Description}" TextColor="Black" FontSize="16" Padding="10,0,10,10" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
+                                    </StackLayout>
+                                </ex:Expander>                                
+                            </Grid>                            
+                    </pv:PancakeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

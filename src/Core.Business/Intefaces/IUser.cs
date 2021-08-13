@@ -9,7 +9,7 @@ namespace Core.Business.Intefaces
         string Name { get; }
         Guid GetUserId();
         string GetUserEmail();
-        bool IsAuthenticated();
+        bool IsAuthenticated(); 
         bool IsInRole(string role);
         IEnumerable<Claim> GetClaimsIdentity();
     }

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjetoMRP.Paciente.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="FirstColor">#163564</Color>
+            <Color x:Key="SecondColor">#2559A7</Color>
+            <Color x:Key="AuxColor">#5A72ED</Color>
+            <Color x:Key="BackSoft">#F5F5F5</Color>
+            <Color x:Key="WhiteSoft">#FAFBFC</Color>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource FirstColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            
+            <Style TargetType="Editor">
+                <Setter Property="BackgroundColor" Value="White"></Setter>
+            </Style>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource SecondColor}"></Setter>
+            </Style>
+            
+            <Style TargetType="CheckBox">
+                <Setter Property="Color" Value="Black"></Setter>
+            </Style>
+
+            <Style TargetType="RadioButton">
+                <Setter Property="BorderColor" Value="Black"></Setter>
+                <Setter Property="BackgroundColor" Value="White"></Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

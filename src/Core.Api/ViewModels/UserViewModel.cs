@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Permissions;
 
 namespace Core.Api.ViewModels
 {
@@ -13,10 +12,15 @@ namespace Core.Api.ViewModels
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
-        public string Password { get; set; }
+        public string Password { get; set; } 
 
         [Compare("Password", ErrorMessage = "As senhas não conferem.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Role { get; set; }
+
+        public string Name { get; set; }
     }
 
     public class LoginUserViewModel
@@ -41,7 +45,6 @@ namespace Core.Api.ViewModels
     {
         public string Id { get; set; }
         public string Email { get; set; }
-        public string Nome { get; set; }
         public IEnumerable<ClaimViewModel> Claims { get; set; }
     }
 
@@ -74,5 +77,53 @@ namespace Core.Api.ViewModels
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class AccountProfileViewModel
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(50, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(50, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [Phone]
+        public string Cell { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(9, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 9)]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Deve ser numérico")]
+        public string DocumentCard { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [DataType(DataType.Date, ErrorMessage = "Data Inválida")]
+        public DateTime BirthDate { get; set; }
+
+        public AddressViewModel Address { get; set; }
+    }
+
+    public class ChangePasswordViewModel
+    {
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
+        public string CurrentPassword { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
+        public string NewPassword { get; set; }
     }
 }

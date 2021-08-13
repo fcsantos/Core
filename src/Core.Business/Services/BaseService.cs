@@ -1,42 +1,86 @@
-﻿using Core.Business.Intefaces;
+﻿using System;
+using Core.Business.Intefaces;
 using Core.Business.Models;
-using Core.Business.Notificacoes;
+using Core.Business.Notifications;
 using FluentValidation;
 using FluentValidation.Results;
 
 namespace Core.Business.Services
 {
     public abstract class BaseService
-    {
-        private readonly INotificador _notificador;
+    { 
+        private readonly INotifier _notifier;
 
-        protected BaseService(INotificador notificador)
+        protected BaseService(INotifier notifier)
         {
-            _notificador = notificador;
+            _notifier = notifier;
         }
 
-        protected void Notificar(ValidationResult validationResult)
+        protected void Notification(ValidationResult validationResult)
         {
             foreach (var error in validationResult.Errors)
             {
-                Notificar(error.ErrorMessage);
+                Notification(error.ErrorMessage);
             }
         }
 
-        protected void Notificar(string mensagem)
+        protected void Notification(string message)
         {
-            _notificador.Handle(new Notificacao(mensagem));
+            _notifier.Handle(new Notification(message));
         }
 
-        protected bool ExecutarValidacao<TV, TE>(TV validacao, TE entidade) where TV : AbstractValidator<TE> where TE : Entity
+        protected bool ExecuteValidation<TV, TE>(TV validation, TE entity) where TV : AbstractValidator<TE> where TE : Entity
         {
-            var validator = validacao.Validate(entidade);
+            var validator = validation.Validate(entity);
 
             if(validator.IsValid) return true;
 
-            Notificar(validator);
+            Notification(validator);
 
             return false;
+        }
+
+        public TE AuditColumns<TE, TER>(TE entity, string typeAction, Guid userId, TER entityRelation = null) where TE : Entity where TER : Entity
+        {
+            if (typeAction == "Create")
+            {
+                entity.CreatedBy = userId.ToString();
+                entity.CreatedDate = DateTime.Now;
+
+                if (entityRelation != null)
+                {
+                    entityRelation.CreatedBy = userId.ToString();
+                    entityRelation.CreatedDate = DateTime.Now;
+                }
+            }
+            else
+            {
+                entity.UpdatedBy = userId.ToString();
+                entity.UpdatedDate = DateTime.Now;
+
+                if (entityRelation != null)
+                {
+                    entityRelation.UpdatedBy = userId.ToString();
+                    entityRelation.UpdatedDate = DateTime.Now;
+                }
+            }
+
+            return entity;
+        }
+
+        public TE AuditColumns<TE>(TE entity, string typeAction, Guid userId) where TE : Entity
+        {
+            if (typeAction == "Create")
+            {
+                entity.CreatedBy = userId.ToString();
+            }
+            else
+            {
+                entity.UpdatedBy = userId.ToString();
+                entity.UpdatedDate = DateTime.Now;
+            }
+
+            return entity;
         }
     }
 }

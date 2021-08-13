@@ -1,0 +1,36 @@
+﻿<li class="nav-item">
+    <a class="nav-link @Url.ActiveClass("Home","Index")" asp-area="" asp-controller="Home" asp-action="Index">
+        <i class=" nav-icon fas fas fa-home"></i>
+        <p>@LocalizerGeneral["Home"]</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link @Url.ActiveClass("Suppliers","Index")" asp-controller="Suppliers" asp-action="Index">
+        <i class=" nav-icon fas fa-user-tie"></i>
+        <p>@Localizer["Fornecedores"]</p>
+    </a>
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-users-cog"></i>
+        <p>@LocalizerGeneral["Configurações"]</p>
+        <i class="right fas fa-angle-left"></i>
+
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a class="nav-link @Url.ActiveClass("ManageUserClaims","Index")" asp-controller="ManageUserClaims" asp-action="Index">
+                <i class=" nav-icon fas fa-user-shield"></i>
+                <p>@Localizer["Manage User Claims"]</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @Url.ActiveClass("Account","Register")" asp-controller="Account" asp-action="Register">
+                <i class=" nav-icon fas fa-user-plus"></i>
+                <p>@LocalizerGeneral["Novo Utilizador"]</p>
+            </a>
+        </li>
+    </ul>
+</li>

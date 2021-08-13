@@ -14,7 +14,7 @@ namespace Core.Api.V1.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        public TesteController(INotificador notificador, IUser appUser, IConfiguration configuration) : base(notificador, appUser)
+        public TesteController(INotifier notificador, IUser appUser, IConfiguration configuration) : base(notificador, appUser)
         {
             _configuration = configuration;
         }

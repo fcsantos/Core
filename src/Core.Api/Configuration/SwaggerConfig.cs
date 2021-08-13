@@ -85,7 +85,7 @@ namespace Core.Api.Configuration
             {
                 Title = "API",
                 Version = description.ApiVersion.ToString(),
-                Description = "Esta é uma WebAPI Core 3.1 com Identity de exemplo.",
+                Description = "API MRP",
                 Contact = new OpenApiContact() { Name = "Nome", Email = "contato@meudominio.com" },
                 License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             };

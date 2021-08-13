@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pkView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="ProjetoMRP.Paciente.View.AjudaPage"
+             Title="Ajuda">
+    <ContentPage.Content>
+        <Grid Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+            <Label
+                Padding="10"
+                Grid.Row="0"
+                Text="Contactos de Emergência"
+                FontAttributes="Bold"
+                FontSize="22"
+                TextColor="Black"
+                />
+            
+            <CollectionView Grid.Row="1"
+                            x:Name="collectionViewListHorizontal" 
+                            SelectionMode="Single">
+                <CollectionView.EmptyView>
+                    <StackLayout CompressedLayout.IsHeadless="false">
+                        <Label
+                             HorizontalOptions="Center"
+                             Text="A carregar ..."
+                             VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="white" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <pkView:PancakeView
+                                Grid.Row="0"
+                                Margin="5,2"
+                                Padding="0"
+                                BackgroundColor="#F5F5F5"
+                                CornerRadius="2">
+
+                                <pkView:PancakeView.Border>
+                                    <pkView:Border Thickness="0" Color="{StaticResource FirstColor}" />
+                                </pkView:PancakeView.Border>
+
+                                <StackLayout Margin="0" Padding="0">
+                                    <Grid Padding="5" Margin="5,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" Padding="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Label 
+                                                Grid.Row="0"
+                                                FontAttributes="Bold"
+                                                FontSize="18"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                Text="{Binding Name}"
+                                                TextColor="Black"
+                                                VerticalOptions="StartAndExpand" />
+                                            <Label 
+                                                Grid.Row="1"
+                                                FontAttributes="Italic"
+                                                FontSize="16"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding Description}"
+                                                TextColor="Black"
+                                                VerticalOptions="StartAndExpand" />
+                                        </Grid>
+                                    </Grid>
+                                </StackLayout>
+
+                                <pkView:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" BindingContext="{Binding Cell}" />
+                                </pkView:PancakeView.GestureRecognizers>
+
+                            </pkView:PancakeView>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

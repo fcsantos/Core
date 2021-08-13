@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Inquéritos"
+             x:Class="ProjetoMRP.Paciente.View.InqueritosPage">
+    <ContentPage.Content >
+        <StackLayout Padding="5">
+                <ListView x:Name="lstInqueritos" HasUnevenRows = "true" ItemTapped="itemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell x:Name="vcPlanoCuidados">
+                                <Frame Padding="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackLayout Margin="5" VerticalOptions="Center" Padding="5">
+                                            <Label Grid.Row="0" Text="{Binding InquiryTitle}" FontSize="20" FontAttributes="Bold"></Label>
+                                        <Label Grid.Row="1" Text="{Binding StartDate,StringFormat='{0:dd/MM/yyyy}'}"></Label>
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="1"
+                                             VerticalOptions="Center"
+                                             Spacing="10"
+                                             Margin="10"
+                                             HorizontalOptions="Start">
+                                            <Frame CornerRadius="10" HeightRequest="16" WidthRequest="80" BackgroundColor="Green" HorizontalOptions="Center" Padding="5">
+                                                <Label Text="Responder" FontSize="12" VerticalOptions="Center" TextColor="White" HorizontalOptions="Center" />
+                                            </Frame>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>  
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+    
+    

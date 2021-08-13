@@ -4,7 +4,7 @@ using System.Linq;
 namespace Core.Business.Models.Validations.Documentos
 {
     public class CpfValidacao
-    {
+    { 
         public const int TamanhoCpf = 11;
 
         public static bool Validar(string cpf)

@@ -34,24 +34,13 @@ namespace Core.Api.Configuration
 
             });
 
-            //cors relaxa a segurança da app
             services.AddCors(options =>
             {
-                options.AddPolicy("Development",
+                options.AddPolicy("Total",
                     builder =>
                         builder
                             .AllowAnyOrigin()
                             .AllowAnyMethod()
-                            .AllowAnyHeader());
-
-                //só pode ser feito o get
-                options.AddPolicy("Production",
-                    builder =>
-                        builder
-                            .WithMethods("GET")
-                            .WithOrigins("http://nomedomeudominio.com")
-                            .SetIsOriginAllowedToAllowWildcardSubdomains()
-                            //.WithHeaders(HeaderNames.ContentType, "x-custom-header")
                             .AllowAnyHeader());
             });
 
@@ -62,24 +51,18 @@ namespace Core.Api.Configuration
         {
             if (env.IsDevelopment())
             {
-                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseCors("Development"); // Usar apenas nas demos => Configuração Ideal: Production
-                app.UseHsts();
-            }
+
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseCors("Total");
 
-            app.UseStaticFiles();
+            app.UseIdentityConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

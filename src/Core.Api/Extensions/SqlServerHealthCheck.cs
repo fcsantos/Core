@@ -8,7 +8,7 @@ namespace Core.Api.Extensions
 {
     public class SqlServerHealthCheck : IHealthCheck
     {
-        readonly string _connection;
+        readonly string _connection; 
 
         public SqlServerHealthCheck(string connection)
         {

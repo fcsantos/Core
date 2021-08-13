@@ -8,14 +8,28 @@ namespace Core.Api.Extensions
         public string Secret { get; set; }
         
         //quantas horas o token tem de validade
-        public int ExpiracaoHoras { get; set; }
+        public int ExpirationHours { get; set; }
         
-        //quem emite: a app
-        public string Emissor { get; set; }
+        //quem emite: a app 
+        public string Issuer { get; set; }
 
         //em quais urls o token é válido
-        public string ValidoEm { get; set; }
+        public string ValidOn { get; set; }
+
+        public string UrlResetPassword { get; set; }
+
+        public string UrlLogin { get; set; }
 
         public string Url { get; set; }
+
+        public Dictionary<string, string[]> ClaimsListDoctor { get; set; }
+
+        public Dictionary<string, string[]> ClaimsListPatient { get; set; }
+
+        public string RoleDoctor { get; set; }
+        public string RolePatient { get; set; }
+        public string RoleAdmin { get; set; }
+
+        public string DefaultPassword { get; set; }
     }
 }

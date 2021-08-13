@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using System;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Core.Api.Extensions;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net.Mail;
-using System.Net;
-using System;
 using Nustache.Core;
 
 namespace Core.Api.Configuration
@@ -29,14 +29,24 @@ namespace Core.Api.Configuration
 
         private async Task Execute(string email, string subject, string htmlMessage)
         {
+            var emailUser = string.Empty;
+            var nameUser = string.Empty;            
+
             try
             {
-                using (var emailMessage = new MailMessage(new MailAddress(Options.From, Options.DisplayName), new MailAddress(email)))
+                if (email.Contains(","))
+                {
+                    var list = email.Split(",");
+                    nameUser = list[0];
+                    emailUser = list[1];
+                }
+
+                using (var emailMessage = new MailMessage(new MailAddress(Options.From, Options.DisplayName), new MailAddress(string.IsNullOrEmpty(emailUser) ? email : emailUser)))
                 {
                     var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
 
                     emailMessage.IsBodyHtml = true;
-                    emailMessage.Body = Render.FileToString(htmlMessage.Contains("Redefina") ? Options.TemplateRedefinir : Options.TemplateRegistro, new { handlerName = email, message = htmlMessage, timestamp = timestamp, name = Options.Name });
+                    emailMessage.Body = Render.FileToString(htmlMessage.Contains("Redefina") ? Options.TemplateRedefinir : htmlMessage.Contains("cadastrado") ? Options.TemplateRegistro : Options.TemplateNotification, new { handlerName = nameUser, message = htmlMessage, timestamp = timestamp, name = Options.Name });
                     emailMessage.Subject = subject;
 
                     using (var smtp = new SmtpClient

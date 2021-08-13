@@ -1,6 +1,5 @@
 using AutoMapper;
 using Core.Api.Configuration;
-using Core.Api.Extensions;
 using Core.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +15,8 @@ namespace Core.Api
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IHostEnvironment hostEnvironment)
         {
             var builder = new ConfigurationBuilder()
@@ -32,12 +33,9 @@ namespace Core.Api
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MeuDbContext>(options =>
+            services.AddDbContext<MyDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
@@ -58,7 +56,6 @@ namespace Core.Api
             services.ResolveDependencies();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory)
         {
             // Add log file
@@ -66,13 +63,15 @@ namespace Core.Api
 
             Initialize.SeedUserAdmin(Configuration.GetSection("Roles").Get<List<string>>(), Configuration, app.ApplicationServices, loggerFactory).Wait();
 
-            app.UseApiConfig(env);
+            Initialize.SeedControllersActions(app.ApplicationServices, loggerFactory, Configuration).Wait();
 
             app.UseSwaggerConfig(provider);
 
+            app.UseApiConfig(env);
+
             app.UseLoggingConfiguration();
 
-
+            app.UseDeveloperExceptionPage();
         }
     }
 }
