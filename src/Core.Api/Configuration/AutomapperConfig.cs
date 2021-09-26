@@ -29,6 +29,12 @@ namespace Core.Api.Configuration
             CreateMap<UserClaimsDto, UserClaimsViewModel>().ReverseMap();
 
             CreateMap<ComboDto, ComboViewModel>().ReverseMap();
+
+            CreateMap<ClientViewModel, Client>()
+                .ForMember(dest => dest.NIF, opt => opt.MapFrom(src => src.NIF.Trim()));
+            CreateMap<Client, ClientViewModel>()
+                .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.IsActive.Value ? "Ativo" : "Inativo"))
+                .ForMember(dest => dest.NIF, opt => opt.MapFrom(src => src.NIF.Trim()));
         }
     }
 }

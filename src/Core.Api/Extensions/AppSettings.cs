@@ -26,9 +26,12 @@ namespace Core.Api.Extensions
 
         public Dictionary<string, string[]> ClaimsListPatient { get; set; }
 
+        public Dictionary<string, string[]> ClaimsListClient { get; set; }
+
         public string RoleDoctor { get; set; }
         public string RolePatient { get; set; }
         public string RoleAdmin { get; set; }
+        public string RoleClient { get; set; }
 
         public string DefaultPassword { get; set; }
     }

@@ -1,0 +1,12 @@
+﻿<li class="nav-item">
+    <a class="nav-link @Url.ActiveClass("Home","Index")" asp-area="" asp-controller="Home" asp-action="Index">
+        <i class="nav-icon fas fas fa-home"></i>
+        <p>@LocalizerGeneral["Home"]</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link @Url.ActiveClass("Clients","Detail")" asp-area="" asp-controller="Clients" asp-action="Detail">
+        <i class="nav-icon fas fa-key"></i>
+        <p>@LocalizerGeneral["Visualizar e gerar ApiKey"]</p>
+    </a>
+</li>

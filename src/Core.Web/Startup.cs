@@ -1,7 +1,9 @@
 using System;
 using System.Globalization;
+using System.IO;
 using Core.Web.Configuration;
 using Core.Web.Extensions;
+using Core.Web.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
@@ -27,6 +30,10 @@ namespace Core.Web
         {
             //localization & globalization
             services.AddLocalization();
+
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 
             services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
 
@@ -48,6 +55,8 @@ namespace Core.Web
                     options.LoginPath = "/login";
                     options.AccessDeniedPath = "/erro/403";
                 });
+
+            services.AddTransient<SymmetricEncryptDecrypt>();
 
             services.AddControllersWithViews();
 

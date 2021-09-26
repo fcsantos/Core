@@ -21,6 +21,7 @@ namespace Core.Data.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<AppController> Controllers { get; set; }
         public DbSet<AppAction> Actions { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

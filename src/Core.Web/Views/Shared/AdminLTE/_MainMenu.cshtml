@@ -9,6 +9,11 @@
                 {
                     <partial name="AdminLTE/_MenuAdmin" />
                 }
+
+                @if (AppUser.GetUserRole(appSettings.Value.RoleClient))
+                {
+                    <partial name="AdminLTE/_MenuClient" />
+                }
             </ul>
         </nav>
     </div>

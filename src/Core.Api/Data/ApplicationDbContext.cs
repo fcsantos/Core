@@ -40,6 +40,11 @@ namespace Core.Api.Data
                 {
                     Name = "paciente",
                     NormalizedName = "PACIENTE"
+                },
+                new IdentityRole
+                {
+                    Name = "cliente",
+                    NormalizedName = "CLIENTE"
                 }
             );
 

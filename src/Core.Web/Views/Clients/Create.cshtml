@@ -1,0 +1,61 @@
+﻿@model ClientViewModel
+
+@{
+    ViewData["Title"] = Localizer["Criar Cliente"];
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<hr />
+<div class="card card-default">
+    <form asp-action="Create" id="form-id">
+        <div class="card-body col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NIF" class="control-label"></label>
+                <input asp-for="NIF" class="form-control" />
+                <span asp-validation-for="NIF" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertificatePathPfx" class="control-label"></label>
+                <input asp-for="CertificatePathPfx" class="form-control" />
+                <span asp-validation-for="CertificatePathPfx" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordPfx" class="control-label"></label>
+                <input asp-for="PasswordPfx" class="form-control" />
+                <span asp-validation-for="PasswordPfx" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertificatePathCer" class="control-label"></label>
+                <input asp-for="CertificatePathCer" class="form-control" />
+                <span asp-validation-for="CertificatePathCer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsernameAT" class="control-label"></label>
+                <input asp-for="UsernameAT" class="form-control" />
+                <span asp-validation-for="UsernameAT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordAT" class="control-label"></label>
+                <input asp-for="PasswordAT" class="form-control" />
+                <span asp-validation-for="PasswordAT" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <partial name="../Shared/Components/Toolbars/_BtnSaveCancel.cshtml" />
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

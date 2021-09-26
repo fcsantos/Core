@@ -157,12 +157,13 @@ namespace Core.Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "60044d6b-1090-4fb0-aba7-e742a66e7854", "8a3a1496-4832-4fb1-be4f-d7c289807623", "admin", "ADMIN" },
-                    { "050352b8-b093-44c0-b21c-5c85fb6c41ff", "10111bed-9f99-4a46-9790-9db20016bb51", "user", "USER" },
-                    { "2392c12b-e118-484c-8f76-ba97018d7003", "12d27640-9a72-432f-9318-92d00e882887", "geral", "GERAL" },
-                    { "e9dcbae2-13cb-4fbb-9d9c-a31083bdfed1", "b0bec226-1df6-43f3-87f6-23dde6237ab6", "fornecedor", "FORNECEDOR" },
-                    { "5b4dbe78-4107-4716-8b5d-c7ba078a4b7b", "35750039-535b-4f3c-a8db-5c3ab4d70ccf", "medico", "MEDICO" },
-                    { "3418f727-83e8-4d36-a1e5-9f323dbfc0ae", "5f0d052b-b5b0-47da-84f8-5e1dfe5a217a", "paciente", "PACIENTE" }
+                    { "37890be0-3f98-40be-ba0d-58b50426f7a3", "3fa9ef64-9e81-4655-ba80-8286e45d7e62", "admin", "ADMIN" },
+                    { "ede14246-8bd0-49a2-8ee3-ae7e30b5c440", "48dbbcc3-39ff-4f9e-9f84-3d888989e5a7", "user", "USER" },
+                    { "6d30d803-17fb-4285-bca2-86111c860cbd", "bf081cfd-c138-4ec7-8615-2813ac80b1e2", "geral", "GERAL" },
+                    { "7a8999c4-783c-4825-8b7a-7a7b371b8ec5", "53ecb267-06b7-4c40-a13d-40c9295e9efb", "fornecedor", "FORNECEDOR" },
+                    { "8f739cc0-69ad-4982-b791-8788e3dc1228", "b35f95ad-e726-4fef-be6e-f9d611d6db5a", "medico", "MEDICO" },
+                    { "cb9b6910-1431-4570-b5ca-cc17b700deb3", "6ae49d1d-eb17-448a-a9ce-4224c120ca03", "paciente", "PACIENTE" },
+                    { "03e9f580-585d-4af5-890c-ea4493045fdd", "523f3a0d-4185-4f1e-9134-b5553c04d656", "cliente", "CLIENTE" }
                 });
 
             migrationBuilder.CreateIndex(

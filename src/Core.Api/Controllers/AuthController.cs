@@ -116,7 +116,7 @@ namespace Core.Api.Controllers
                 var resultRole = await _userManager.AddToRoleAsync(user, registerUser.Role);
                 if (resultRole.Succeeded) {
 
-                    var claims = registerUser.Role == _appSettings.RolePatient ? _appSettings.ClaimsListPatient : registerUser.Role == _appSettings.RoleDoctor ? _appSettings.ClaimsListDoctor : new Dictionary<string, string[]>();
+                    var claims = registerUser.Role == _appSettings.RolePatient ? _appSettings.ClaimsListPatient : registerUser.Role == _appSettings.RoleDoctor ? _appSettings.ClaimsListDoctor : registerUser.Role == _appSettings.RoleClient ? _appSettings.ClaimsListClient : new Dictionary<string, string[]>();
                     foreach (var claim in claims)
                     {
                         foreach (var item in claim.Value)

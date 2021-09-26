@@ -7,6 +7,8 @@
         public string RoleDoctor { get; set; }
         public string RolePatient { get; set; }
         public string RoleAdmin { get; set; }
+
+        public string RoleClient { get; set; }
         public string DefaultPassword { get; set; }
     }
 }

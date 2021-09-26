@@ -21,6 +21,7 @@ namespace Core.Api.Configuration
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IAppControllerRepository, AppControllerRepository>();
             services.AddScoped<IAppActionRepository, AppActionRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
 
 
             services.AddScoped<INotifier, Notifier>();
@@ -28,9 +29,12 @@ namespace Core.Api.Configuration
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IAppControllerService, AppControllerService>();
             services.AddScoped<IAppActionService, AppActionService>();
+            services.AddScoped<IClientService, ClientService>();
 
 
-            services.AddScoped<IDapperDbRepository, DapperDbRepository>();            
+            services.AddScoped<IDapperDbRepository, DapperDbRepository>();
+
+            services.AddTransient<SymmetricEncryptDecrypt>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
