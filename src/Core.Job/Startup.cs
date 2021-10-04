@@ -1,6 +1,9 @@
 using System;
+using System.Configuration;
+using System.IO;
 using Core.Job.Services;
 using Hangfire;
+using Hangfire.Storage.SQLite;
 using HangfireBasicAuthenticationFilter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,11 +25,20 @@ namespace Core.Job
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddHangfire(config =>
+            //    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+            //    .UseSimpleAssemblyNameTypeSerializer()
+            //    .UseDefaultTypeSerializer()
+            //    .UseSqlServerStorage(Configuration["Hangfire"]));
+
+            string diretoryHangfireDB = Configuration["DiretoryHangfire"];
+            if (!Directory.Exists(diretoryHangfireDB))
+            {
+                Directory.CreateDirectory(diretoryHangfireDB);
+            }
+
             services.AddHangfire(config =>
-                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseDefaultTypeSerializer()
-                .UseSqlServerStorage(Configuration["Hangfire"]));
+                config.UseSQLiteStorage(Configuration["ConnectionStringHangfire"]));
 
             services.AddHangfireServer();
 
@@ -70,9 +82,9 @@ namespace Core.Job
 
             backgroundJobClient.Enqueue(() => Console.WriteLine("Jobs - Run every minute!"));
 
-            recurringJobManager.AddOrUpdate("Send Access to New Patient", () => serviceProvider.GetService<ISendMailToPatient>().SendAccessToNewPatientAsync(Configuration.GetSection("APICoreUrl").Value), "* * * * *");
-            recurringJobManager.AddOrUpdate("Notification of new message to the Patient", () => serviceProvider.GetService<ISendMailToPatient>().NotificationOfNewMessageToPatientAsync(Configuration.GetSection("APICoreUrl").Value), "* * * * *");
-            recurringJobManager.AddOrUpdate("Notification of inquiry schedule to the Patient", () => serviceProvider.GetService<ISendMailToPatient>().NotificationOfInquiryScheduleToPatient(Configuration.GetSection("APICoreUrl").Value), "* * * * *");
+            //recurringJobManager.AddOrUpdate("Send Access to New Patient", () => serviceProvider.GetService<ISendMailToPatient>().SendAccessToNewPatientAsync(Configuration.GetSection("APICoreUrl").Value), "* * * * *");
+            //recurringJobManager.AddOrUpdate("Notification of new message to the Patient", () => serviceProvider.GetService<ISendMailToPatient>().NotificationOfNewMessageToPatientAsync(Configuration.GetSection("APICoreUrl").Value), "* * * * *");
+            //recurringJobManager.AddOrUpdate("Notification of inquiry schedule to the Patient", () => serviceProvider.GetService<ISendMailToPatient>().NotificationOfInquiryScheduleToPatient(Configuration.GetSection("APICoreUrl").Value), "* * * * *");
             recurringJobManager.AddOrUpdate("Job Sample", () => serviceProvider.GetService<IPrintJob>().Print(), "* * * * *");
         }
     }
