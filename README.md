@@ -1,7 +1,7 @@
 
 Repositório para o projeto base em .Net Core. Este é o template principal para todos os projetos.
 
-# Lusodata MRP
+# Projeto Core
 
 ## Ao fazer o clone do projeto:
 
