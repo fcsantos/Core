@@ -1,5 +1,5 @@
 
-Repositório para o projeto base em .Net Core. Este é o template principal para todos os projetos Lusodata.
+Repositório para o projeto base em .Net Core. Este é o template principal para todos os projetos.
 
 # Lusodata MRP
 
