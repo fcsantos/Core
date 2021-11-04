@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.ViewModels;
 using Core.Business.Intefaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +9,15 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NetDevPack.Security.JwtSigningCredentials.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Core.Api.Controllers
 {
@@ -32,8 +32,8 @@ namespace Core.Api.Controllers
         private readonly ILogger _logger;
         private readonly IEmailSender _emailSender;
         private readonly IMapper _mapper;
-        //private readonly IPatientRepository _patientRepository;
-        //private readonly IDoctorRepository _doctorRepository;
+
+        private readonly IJsonWebKeySetService _jwksService;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
@@ -42,8 +42,7 @@ namespace Core.Api.Controllers
                               IEmailSender emailSender, 
                               IMapper mapper, 
                               RoleManager<IdentityRole> roleManager,
-                              //IPatientRepository patientRepository,
-                              //IDoctorRepository doctorRepository,
+                              IJsonWebKeySetService jwksService,
                               INotifier notifier, IUser user) : base(notifier, user)
         {
             _signInManager = signInManager;
@@ -53,8 +52,7 @@ namespace Core.Api.Controllers
             _emailSender = emailSender;
             _mapper = mapper;
             _roleManager = roleManager;
-            //_patientRepository = patientRepository;
-            //_doctorRepository = doctorRepository;
+            _jwksService = jwksService;
         }
 
         [ClaimsAuthorize("Account", "Register")]
@@ -116,7 +114,7 @@ namespace Core.Api.Controllers
                 var resultRole = await _userManager.AddToRoleAsync(user, registerUser.Role);
                 if (resultRole.Succeeded) {
 
-                    var claims = registerUser.Role == _appSettings.RolePatient ? _appSettings.ClaimsListPatient : registerUser.Role == _appSettings.RoleDoctor ? _appSettings.ClaimsListDoctor : registerUser.Role == _appSettings.RoleClient ? _appSettings.ClaimsListClient : new Dictionary<string, string[]>();
+                    var claims = registerUser.Role == _appSettings.RoleClient ? _appSettings.ClaimsListClient : new Dictionary<string, string[]>();
                     foreach (var claim in claims)
                     {
                         foreach (var item in claim.Value)
@@ -267,9 +265,6 @@ namespace Core.Api.Controllers
             var claims = await _userManager.GetClaimsAsync(user);
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            //var patient = await _patientRepository.GetPatientByUserId(user.Id);
-            //var doctor = await _doctorRepository.GetDoctorByUserId(user.Id);
-
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));         
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
@@ -285,14 +280,15 @@ namespace Core.Api.Controllers
             identityClaims.AddClaims(claims);
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var currentIssuer =
+                $"{AppUser.GetHttpContext().Request.Scheme}://{AppUser.GetHttpContext().Request.Host}";
+            var key = _jwksService.GetCurrent();
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = _appSettings.Issuer,
-                Audience = _appSettings.ValidOn,
+                Issuer = currentIssuer,
                 Subject = identityClaims,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpirationHours),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = key
             });
 
             var encodedToken = tokenHandler.WriteToken(token);

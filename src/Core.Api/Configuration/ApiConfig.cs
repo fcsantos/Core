@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Core.Api.Extensions;
+using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 
 namespace Core.Api.Configuration
 {
@@ -68,6 +69,8 @@ namespace Core.Api.Configuration
             {
                 endpoints.MapControllers();
             });
+
+            app.UseJwksDiscovery();
 
             return app;
         }

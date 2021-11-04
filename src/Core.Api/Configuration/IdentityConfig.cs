@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Core.Api.Data;
+using Core.Api.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Core.Api.Data;
-using Core.Api.Extensions;
-using System.Text;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Builder;
+using NetDevPack.Security.JwtExtensions;
+using NetDevPack.Security.JwtSigningCredentials;
 
 namespace Core.Api.Configuration
 {
@@ -17,6 +17,9 @@ namespace Core.Api.Configuration
         public static IServiceCollection AddIdentityConfig(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddJwksManager(options => options.Algorithm = Algorithm.ES256)
+                .PersistKeysToDatabaseStore<ApplicationDbContext>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
@@ -37,7 +40,6 @@ namespace Core.Api.Configuration
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(options =>
             {
@@ -47,15 +49,7 @@ namespace Core.Api.Configuration
             {
                 bearerOptions.RequireHttpsMetadata = true; //garantia que eu só vou trabalhar com https(evitar ataque "main the meddle")
                 bearerOptions.SaveToken = true; //Token deve ser guardado no http authentication properties
-                bearerOptions.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = appSettings.ValidOn,
-                    ValidIssuer = appSettings.Issuer
-                };
+                bearerOptions.SetJwksOptions(new JwkOptions(appSettings.AutenticationJwksUrl));
             });
 
             return services;

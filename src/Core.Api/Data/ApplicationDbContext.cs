@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using NetDevPack.Security.JwtSigningCredentials;
+using NetDevPack.Security.JwtSigningCredentials.Store.EntityFrameworkCore;
 
 namespace Core.Api.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext, ISecurityKeyContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        public DbSet<SecurityKeyWithPrivate> SecurityKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,16 +34,6 @@ namespace Core.Api.Data
                 {
                     Name = "fornecedor",
                     NormalizedName = "FORNECEDOR"
-                },
-                new IdentityRole
-                {
-                    Name = "medico",
-                    NormalizedName = "MEDICO"
-                },
-                new IdentityRole
-                {
-                    Name = "paciente",
-                    NormalizedName = "PACIENTE"
                 },
                 new IdentityRole
                 {

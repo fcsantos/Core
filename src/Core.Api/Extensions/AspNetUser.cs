@@ -27,6 +27,11 @@ namespace Core.Api.Extensions
             return IsAuthenticated() ? _accessor.HttpContext.User.GetUserEmail() : string.Empty;
         }
 
+        public string GetUserToken()
+        {
+            return IsAuthenticated() ? _accessor.HttpContext.User.GetUserToken() : "";
+        }
+
         public bool IsAuthenticated()
         {
             return _accessor.HttpContext.User.Identity.IsAuthenticated;
@@ -40,6 +45,11 @@ namespace Core.Api.Extensions
         public IEnumerable<Claim> GetClaimsIdentity()
         {
             return _accessor.HttpContext.User.Claims;
+        }
+
+        public HttpContext GetHttpContext()
+        {
+            return _accessor.HttpContext;
         }
     }
 
@@ -64,6 +74,17 @@ namespace Core.Api.Extensions
             }
 
             var claim = principal.FindFirst(ClaimTypes.Email);
+            return claim?.Value;
+        }
+
+        public static string GetUserToken(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new ArgumentException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("JWT");
             return claim?.Value;
         }
     }

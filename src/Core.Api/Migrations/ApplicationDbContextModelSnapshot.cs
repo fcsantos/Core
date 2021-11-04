@@ -15,7 +15,7 @@ namespace Core.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.4")
+                .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -48,50 +48,36 @@ namespace Core.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "37890be0-3f98-40be-ba0d-58b50426f7a3",
-                            ConcurrencyStamp = "3fa9ef64-9e81-4655-ba80-8286e45d7e62",
+                            Id = "9a117125-278e-46c3-a1eb-bf4a35b078dd",
+                            ConcurrencyStamp = "3ea95a3d-0654-4594-9fb4-a3deacda9649",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ede14246-8bd0-49a2-8ee3-ae7e30b5c440",
-                            ConcurrencyStamp = "48dbbcc3-39ff-4f9e-9f84-3d888989e5a7",
+                            Id = "a9af699a-b4ea-49df-9a7d-93e09f0cb2e1",
+                            ConcurrencyStamp = "78cbbf5b-90b0-485a-8f47-7f1d9cb026b7",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "6d30d803-17fb-4285-bca2-86111c860cbd",
-                            ConcurrencyStamp = "bf081cfd-c138-4ec7-8615-2813ac80b1e2",
+                            Id = "0b07abfd-10b4-491d-b481-7a3b330a16b8",
+                            ConcurrencyStamp = "5b1b2f3b-7433-47b9-83b0-3feea71ff099",
                             Name = "geral",
                             NormalizedName = "GERAL"
                         },
                         new
                         {
-                            Id = "7a8999c4-783c-4825-8b7a-7a7b371b8ec5",
-                            ConcurrencyStamp = "53ecb267-06b7-4c40-a13d-40c9295e9efb",
+                            Id = "79d28880-776f-4875-a185-5b797f7866c0",
+                            ConcurrencyStamp = "c957dfc1-6f16-4c8d-9aad-08e14a6d7ee9",
                             Name = "fornecedor",
                             NormalizedName = "FORNECEDOR"
                         },
                         new
                         {
-                            Id = "8f739cc0-69ad-4982-b791-8788e3dc1228",
-                            ConcurrencyStamp = "b35f95ad-e726-4fef-be6e-f9d611d6db5a",
-                            Name = "medico",
-                            NormalizedName = "MEDICO"
-                        },
-                        new
-                        {
-                            Id = "cb9b6910-1431-4570-b5ca-cc17b700deb3",
-                            ConcurrencyStamp = "6ae49d1d-eb17-448a-a9ce-4224c120ca03",
-                            Name = "paciente",
-                            NormalizedName = "PACIENTE"
-                        },
-                        new
-                        {
-                            Id = "03e9f580-585d-4af5-890c-ea4493045fdd",
-                            ConcurrencyStamp = "523f3a0d-4185-4f1e-9134-b5553c04d656",
+                            Id = "ac98baf3-998e-45ae-bb35-4ff420c4642f",
+                            ConcurrencyStamp = "945545d9-f2c2-4919-b34d-1eb368e67de4",
                             Name = "cliente",
                             NormalizedName = "CLIENTE"
                         });
@@ -268,6 +254,32 @@ namespace Core.Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("NetDevPack.Security.JwtSigningCredentials.SecurityKeyWithPrivate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Algorithm")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("KeyId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Parameters")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SecurityKeys");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

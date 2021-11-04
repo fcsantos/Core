@@ -47,6 +47,22 @@ namespace Core.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SecurityKeys",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Parameters = table.Column<string>(nullable: true),
+                    KeyId = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Algorithm = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecurityKeys", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -157,13 +173,11 @@ namespace Core.Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "37890be0-3f98-40be-ba0d-58b50426f7a3", "3fa9ef64-9e81-4655-ba80-8286e45d7e62", "admin", "ADMIN" },
-                    { "ede14246-8bd0-49a2-8ee3-ae7e30b5c440", "48dbbcc3-39ff-4f9e-9f84-3d888989e5a7", "user", "USER" },
-                    { "6d30d803-17fb-4285-bca2-86111c860cbd", "bf081cfd-c138-4ec7-8615-2813ac80b1e2", "geral", "GERAL" },
-                    { "7a8999c4-783c-4825-8b7a-7a7b371b8ec5", "53ecb267-06b7-4c40-a13d-40c9295e9efb", "fornecedor", "FORNECEDOR" },
-                    { "8f739cc0-69ad-4982-b791-8788e3dc1228", "b35f95ad-e726-4fef-be6e-f9d611d6db5a", "medico", "MEDICO" },
-                    { "cb9b6910-1431-4570-b5ca-cc17b700deb3", "6ae49d1d-eb17-448a-a9ce-4224c120ca03", "paciente", "PACIENTE" },
-                    { "03e9f580-585d-4af5-890c-ea4493045fdd", "523f3a0d-4185-4f1e-9134-b5553c04d656", "cliente", "CLIENTE" }
+                    { "9a117125-278e-46c3-a1eb-bf4a35b078dd", "3ea95a3d-0654-4594-9fb4-a3deacda9649", "admin", "ADMIN" },
+                    { "a9af699a-b4ea-49df-9a7d-93e09f0cb2e1", "78cbbf5b-90b0-485a-8f47-7f1d9cb026b7", "user", "USER" },
+                    { "0b07abfd-10b4-491d-b481-7a3b330a16b8", "5b1b2f3b-7433-47b9-83b0-3feea71ff099", "geral", "GERAL" },
+                    { "79d28880-776f-4875-a185-5b797f7866c0", "c957dfc1-6f16-4c8d-9aad-08e14a6d7ee9", "fornecedor", "FORNECEDOR" },
+                    { "ac98baf3-998e-45ae-bb35-4ff420c4642f", "945545d9-f2c2-4919-b34d-1eb368e67de4", "cliente", "CLIENTE" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -222,6 +236,9 @@ namespace Core.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "SecurityKeys");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
