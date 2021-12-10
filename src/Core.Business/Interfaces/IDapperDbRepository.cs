@@ -3,7 +3,7 @@ using Core.Business.Models.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Business.Intefaces
+namespace Core.Business.Interfaces
 {
     public interface IDapperDbRepository
     {

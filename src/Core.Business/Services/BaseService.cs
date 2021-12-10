@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Models;
 using Core.Business.Notifications;
 using FluentValidation;

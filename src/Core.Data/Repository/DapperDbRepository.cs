@@ -1,4 +1,4 @@
-﻿using Core.Business.Intefaces;
+﻿using Core.Business.Interfaces;
 using Core.Business.Models;
 using Core.Business.Models.DTO;
 using Dapper;

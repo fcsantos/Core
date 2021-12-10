@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Business.Notifications;
 
-namespace Core.Business.Intefaces
+namespace Core.Business.Interfaces
 {
     public interface INotifier
     {

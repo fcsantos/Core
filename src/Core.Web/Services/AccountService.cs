@@ -30,9 +30,9 @@ namespace Core.Web.Services
 
         public async Task<UserResponseLogin> Register(UserRegister userRegister)
         {
-            var registroContent = GetContent(userRegister);
+            var registrationContent = GetContent(userRegister);
 
-            var response = await _httpClient.PostAsync("new-account", registroContent);
+            var response = await _httpClient.PostAsync("new-account", registrationContent);
 
             if (!HandlingErrorsResponse(response))
             {
@@ -47,9 +47,9 @@ namespace Core.Web.Services
 
         public async Task<UserResponseLogin> RegisterUser(UserRegister userRegister)
         {
-            var registroContent = GetContent(userRegister);
+            var registrationContent = GetContent(userRegister);
 
-            var response = await _httpClient.PostAsync("new-account-user", registroContent);
+            var response = await _httpClient.PostAsync("new-account-user", registrationContent);
 
             if (!HandlingErrorsResponse(response))
             {

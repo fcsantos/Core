@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.ViewModels;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

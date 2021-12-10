@@ -10,6 +10,6 @@
         public string City { get; set; }
         public string State { get; set; }
 
-        public Supplier Fornecedor { get; set; }
+        public Supplier Supplier { get; set; }
     }
 }

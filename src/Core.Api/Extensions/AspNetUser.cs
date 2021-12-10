@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;

@@ -1,6 +1,3 @@
-using System;
-using System.Configuration;
-using System.IO;
 using Core.Job.Services;
 using Hangfire;
 using Hangfire.Storage.SQLite;
@@ -11,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
 
 namespace Core.Job
 {

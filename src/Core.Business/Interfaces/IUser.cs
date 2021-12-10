@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace Core.Business.Intefaces
+namespace Core.Business.Interfaces
 {
     public interface IUser
     {

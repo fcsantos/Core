@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Core.Api.Controllers;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using System;
 
 namespace Core.Api.V2.Controllers

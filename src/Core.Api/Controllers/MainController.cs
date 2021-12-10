@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Notifications;
 using System;
 using System.Linq;
@@ -49,16 +49,16 @@ namespace Core.Api.Controllers
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
-            if (!modelState.IsValid) NotifyErrorModelInvalida(modelState);
+            if (!modelState.IsValid) NotifyErrorModelInvalid(modelState);
             return CustomResponse();
         }
 
-        protected void NotifyErrorModelInvalida(ModelStateDictionary modelState)
+        protected void NotifyErrorModelInvalid(ModelStateDictionary modelState)
         {
-            var erros = modelState.Values.SelectMany(e => e.Errors);
-            foreach (var erro in erros)
+            var errors = modelState.Values.SelectMany(e => e.Errors);
+            foreach (var error in errors)
             {
-                var errorMsg = erro.Exception == null ? erro.ErrorMessage : erro.Exception.Message;
+                var errorMsg = error.Exception == null ? error.ErrorMessage : error.Exception.Message;
                 NotifyError(errorMsg);
             }
         }

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Core.Business.Intefaces
+namespace Core.Business.Interfaces
 {
     public interface IAddressRepository : IRepository<Address>
     {

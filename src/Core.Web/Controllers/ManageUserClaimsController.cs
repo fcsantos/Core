@@ -71,7 +71,7 @@ namespace Core.Web.Controllers
         {
             var response = _manageUserClaimsService.Delete(Id).Result;
 
-            if (response.Errors.Messages.Count() > 0)
+            if (response.Errors.Messages.Any())
                 return Json(new DeleteResponseMessage { message = _localizerGeneral[response.Errors.Messages.FirstOrDefault()], success = false });
 
             return Json(new DeleteResponseMessage { message = _localizerGeneral["Registro deletado com sucesso"], success = true });

@@ -11,8 +11,8 @@ namespace Core.Data.Mappings
             builder.HasKey(p => p.Id);
 
             builder.Property(c => c.CreatedBy)
-    .IsRequired(false)
-    .HasColumnType("varchar(max)");
+                .IsRequired(false)
+                .HasColumnType("varchar(max)");
             builder.Property(c => c.CreatedDate)
                 .IsRequired(false)
                 .HasColumnType("DateTime")

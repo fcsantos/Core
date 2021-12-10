@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Models;
 using Core.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +13,8 @@ namespace Core.Data.Repository
 
         public async Task<Address> GetAddressBySupplier(Guid fornecedorId) 
         {
-            return await Db.Adresses.AsNoTracking().Include(f => f.Fornecedor)
-                .FirstOrDefaultAsync(a => a.Fornecedor.Id == fornecedorId);
+            return await Db.Adresses.AsNoTracking().Include(f => f.Supplier)
+                .FirstOrDefaultAsync(a => a.Supplier.Id == fornecedorId);
         }
     }
 }

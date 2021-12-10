@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Core.Api.Extensions;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

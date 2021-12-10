@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Api.ViewModels
+﻿namespace Core.Api.ViewModels
 {
     public class AllUsersViewModel
     {

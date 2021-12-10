@@ -1,7 +1,7 @@
 ﻿using Core.Business.Models;
 using System.Threading.Tasks;
 
-namespace Core.Business.Intefaces
+namespace Core.Business.Interfaces
 {
     public interface IClientRepository : IRepository<Client>
     {

@@ -156,7 +156,7 @@ namespace Core.Web.Controllers
 
             var response = _clientService.Delete(Id).Result;
 
-            if (response.Errors.Messages.Count() > 0)
+            if (response.Errors.Messages.Any())
                 return Json(new DeleteResponseMessage { message = response.Errors.Messages.FirstOrDefault(), success = false });
 
             return Json(new DeleteResponseMessage { message = patientViewModel.IsActive.Value ? _localizerGeneral["Registro inativado com sucesso"] : _localizerGeneral["Registro ativado com sucesso"], success = true });

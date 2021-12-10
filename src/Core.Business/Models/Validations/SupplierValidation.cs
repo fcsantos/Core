@@ -1,4 +1,4 @@
-﻿using Core.Business.Models.Validations.Documentos;
+﻿using Core.Business.Models.Validations.Documents;
 using FluentValidation;
 
 namespace Core.Business.Models.Validations
@@ -14,17 +14,17 @@ namespace Core.Business.Models.Validations
 
             When(f => f.TypeSupplier == TypeSupplier.PessoaFisica, () =>
             {
-                RuleFor(f => f.Document.Length).Equal(CpfValidacao.TamanhoCpf)
+                RuleFor(f => f.Document.Length).Equal(CpfValidation.SizeCpf)
                     .WithMessage("O campo Documento precisa ter {ComparisonValue} caracteres e foi fornecido {PropertyValue}.");
-                RuleFor(f=> CpfValidacao.Validar(f.Document)).Equal(true)
+                RuleFor(f=> CpfValidation.Validate(f.Document)).Equal(true)
                     .WithMessage("O documento fornecido é inválido.");
             });
 
             When(f => f.TypeSupplier == TypeSupplier.PessoaJuridica, () =>
             {
-                RuleFor(f => f.Document.Length).Equal(CnpjValidacao.TamanhoCnpj)
+                RuleFor(f => f.Document.Length).Equal(CnpjValidation.SizeCnpj)
                     .WithMessage("O campo Documento precisa ter {ComparisonValue} caracteres e foi fornecido {PropertyValue}.");
-                RuleFor(f => CnpjValidacao.Validar(f.Document)).Equal(true)
+                RuleFor(f => CnpjValidation.Validate(f.Document)).Equal(true)
                     .WithMessage("O documento fornecido é inválido.");
             });
         }

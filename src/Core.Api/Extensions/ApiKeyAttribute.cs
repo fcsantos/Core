@@ -1,4 +1,4 @@
-﻿using Core.Business.Intefaces;
+﻿using Core.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;

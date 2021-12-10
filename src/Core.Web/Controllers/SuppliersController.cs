@@ -89,7 +89,7 @@ namespace Core.Web.Controllers
 
             var response = _supplierService.Delete(Id).Result;
 
-            if (response.Errors.Messages.Count() > 0)           
+            if (response.Errors.Messages.Any())           
                 return Json(new DeleteResponseMessage { message = response.Errors.Messages.FirstOrDefault(), success = false });            
 
             return Json(new DeleteResponseMessage { message = _localizerGeneral["Registro deletado com sucesso"], success = true });

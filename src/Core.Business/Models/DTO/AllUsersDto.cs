@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Business.Models.DTO
+﻿namespace Core.Business.Models.DTO
 {
     public class AllUsersDto
     {

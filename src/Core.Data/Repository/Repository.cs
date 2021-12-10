@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Models;
 using Core.Data.Context;
 using Microsoft.EntityFrameworkCore;

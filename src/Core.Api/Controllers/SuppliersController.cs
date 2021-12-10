@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Core.Api.ViewModels;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Models;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
-using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Core.Web.Extensions
 {

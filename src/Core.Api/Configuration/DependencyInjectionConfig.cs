@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Core.Api.Extensions;
-using Core.Business.Intefaces;
+using Core.Business.Interfaces;
 using Core.Business.Notifications;
 using Core.Business.Services;
 using Core.Data.Context;

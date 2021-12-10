@@ -54,7 +54,7 @@ namespace Core.Data.Mappings
                 .HasColumnType("DateTime");
 
             // 1 : 1 => Endereco : Fornecedor 
-            builder.HasOne(a => a.Fornecedor)
+            builder.HasOne(a => a.Supplier)
                 .WithOne(f => f.Address);
 
             builder.ToTable("Adresses");
