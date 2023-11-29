@@ -281,12 +281,12 @@ namespace Core.Api.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var now = DateTime.Now;
-            var currentIssuer =
-                $"{AppUser.GetHttpContext().Request.Scheme}://{AppUser.GetHttpContext().Request.Host}";
+            //var currentIssuer =
+            //    $"{AppUser.GetHttpContext().Request.Scheme}://{AppUser.GetHttpContext().Request.Host}";
             var key = await _jwksService.GetCurrentSigningCredentials();
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = currentIssuer, // <- Your website
+                Issuer = _appSettings.AutenticationJwksUrl, // <- Your website
                 Audience = "NetDevPack.Security.Jwt.AspNet",
                 IssuedAt = now,
                 NotBefore = now,
