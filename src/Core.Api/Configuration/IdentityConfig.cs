@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NetDevPack.Security.JwtExtensions;
-using NetDevPack.Security.JwtSigningCredentials;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Api.Configuration
 {
@@ -17,7 +16,9 @@ namespace Core.Api.Configuration
         public static IServiceCollection AddIdentityConfig(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddJwksManager(options => options.Algorithm = Algorithm.ES256)
+            services
+                .AddJwksManager()
+                .UseJwtValidation()
                 .PersistKeysToDatabaseStore<ApplicationDbContext>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -41,16 +42,18 @@ namespace Core.Api.Configuration
 
             var appSettings = appSettingsSection.Get<AppSettings>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(bearerOptions =>
-            {
-                bearerOptions.RequireHttpsMetadata = true; //garantia que eu só vou trabalhar com https(evitar ataque "main the meddle")
-                bearerOptions.SaveToken = true; //Token deve ser guardado no http authentication properties
-                bearerOptions.SetJwksOptions(new JwkOptions(appSettings.AutenticationJwksUrl));
-            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+             {
+                 options.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuer = true,
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     ValidIssuer = appSettings.AutenticationJwksUrl, // <- Your website
+                     ValidAudience = "NetDevPack.Security.Jwt.AspNet"
+                 };
+             });
 
             return services;
         }

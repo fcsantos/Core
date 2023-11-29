@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using NetDevPack.Security.JwtSigningCredentials;
-using NetDevPack.Security.JwtSigningCredentials.Store.EntityFrameworkCore;
+using NetDevPack.Security.Jwt.Core.Model;
+using NetDevPack.Security.Jwt.Store.EntityFrameworkCore;
 
 namespace Core.Api.Data
 {
@@ -10,10 +10,12 @@ namespace Core.Api.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<SecurityKeyWithPrivate> SecurityKeys { get; set; }
+        public DbSet<KeyMaterial> SecurityKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new KeyMaterialMap());
+
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole
                 {

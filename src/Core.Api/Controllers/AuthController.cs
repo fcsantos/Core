@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NetDevPack.Security.JwtSigningCredentials.Interfaces;
+using NetDevPack.Security.Jwt.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -33,7 +33,7 @@ namespace Core.Api.Controllers
         private readonly IEmailSender _emailSender;
         private readonly IMapper _mapper;
 
-        private readonly IJsonWebKeySetService _jwksService;
+        private readonly IJwtService _jwksService;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
@@ -42,7 +42,7 @@ namespace Core.Api.Controllers
                               IEmailSender emailSender, 
                               IMapper mapper, 
                               RoleManager<IdentityRole> roleManager,
-                              IJsonWebKeySetService jwksService,
+                              IJwtService jwksService,
                               INotifier notifier, IUser user) : base(notifier, user)
         {
             _signInManager = signInManager;
@@ -280,14 +280,18 @@ namespace Core.Api.Controllers
             identityClaims.AddClaims(claims);
 
             var tokenHandler = new JwtSecurityTokenHandler();
+            var now = DateTime.Now;
             var currentIssuer =
                 $"{AppUser.GetHttpContext().Request.Scheme}://{AppUser.GetHttpContext().Request.Host}";
-            var key = _jwksService.GetCurrent();
+            var key = await _jwksService.GetCurrentSigningCredentials();
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = currentIssuer,
-                Subject = identityClaims,
+                Issuer = currentIssuer, // <- Your website
+                Audience = "NetDevPack.Security.Jwt.AspNet",
+                IssuedAt = now,
+                NotBefore = now,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpirationHours),
+                Subject = identityClaims,
                 SigningCredentials = key
             });
 
