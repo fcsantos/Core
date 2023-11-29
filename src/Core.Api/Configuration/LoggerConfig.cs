@@ -1,14 +1,10 @@
 ﻿using Elmah.Io.AspNetCore;
-using Elmah.Io.AspNetCore.HealthChecks;
-using HealthChecks.UI.Client;
+using Elmah.Io.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Core.Api.Extensions;
-using System;
-using Elmah.Io.Extensions.Logging;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Core.Api.Configuration
 {

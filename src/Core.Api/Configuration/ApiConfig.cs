@@ -1,11 +1,9 @@
-﻿using HealthChecks.UI.Client;
+﻿using Core.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Core.Api.Extensions;
 using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 
 namespace Core.Api.Configuration
