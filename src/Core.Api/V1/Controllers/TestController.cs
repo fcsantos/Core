@@ -1,4 +1,5 @@
-﻿using Core.Api.Controllers;
+﻿using Asp.Versioning;
+using Core.Api.Controllers;
 using Core.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

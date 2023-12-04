@@ -90,8 +90,11 @@ namespace Core.Data.Repository
                     //          $"Id NOT IN(SELECT P.UserId FROM Patients P) " +
                     //          $"ORDER BY UserType ASC";
 
-                    var sql = $"SELECT U.Id, U.Email, U.Email AS Name, 'Utilizador' as UserType FROM AspNetUsers U " +
-                              $"ORDER BY UserType ASC";
+                    var sql = @"SELECT U.Id, U.Email, U.Email AS Name, R.Name as UserType 
+                                FROM CoreDB.dbo.AspNetUsers U
+                                inner join CoreDB.dbo.AspNetUserRoles UR on u.Id = UR.UserId
+                                inner join CoreDB.dbo.AspNetRoles R on UR.RoleId = R.Id
+                                ORDER BY UserType ASC";
                     return await conn.QueryAsync<AllUsersDto>(sql);
                 }
             }

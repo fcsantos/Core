@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using Core.Api.ViewModels;
 using Core.Business.Interfaces;
 using Microsoft.AspNetCore.Authorization;

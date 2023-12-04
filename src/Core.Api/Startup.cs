@@ -1,3 +1,4 @@
+using Asp.Versioning.ApiExplorer;
 using AutoMapper;
 using Core.Api.Configuration;
 using Core.Data.Context;

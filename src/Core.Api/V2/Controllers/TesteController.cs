@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Core.Api.Controllers;
 using Core.Business.Interfaces;
 using System;
+using Asp.Versioning;
 
 namespace Core.Api.V2.Controllers
 {

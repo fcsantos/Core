@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Core.Api.Extensions;
+using Asp.Versioning;
 
 namespace Core.Api.Controllers
 {
