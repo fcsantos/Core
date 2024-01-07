@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Core.Data.Migrations
 {
     public partial class Initial : Migration
@@ -11,18 +13,18 @@ namespace Core.Data.Migrations
                 name: "Adresses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
-                    CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Location = table.Column<string>(type: "varchar(200)", nullable: false),
                     Number = table.Column<string>(type: "varchar(50)", nullable: false),
                     Complement = table.Column<string>(type: "varchar(250)", nullable: true),
                     PostalCode = table.Column<string>(type: "char(8)", nullable: false),
                     District = table.Column<string>(type: "varchar(100)", nullable: false),
                     City = table.Column<string>(type: "varchar(100)", nullable: false),
-                    State = table.Column<string>(type: "varchar(50)", nullable: false)
+                    State = table.Column<string>(type: "varchar(50)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
+                    CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,13 +35,13 @@ namespace Core.Data.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: false, defaultValueSql: "GETDATE()"),
                     CreatedBy = table.Column<string>(type: "varchar(max)", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    CategoryId = table.Column<Guid>(nullable: true),
-                    Name = table.Column<string>(type: "varchar(100)", nullable: false)
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,20 +50,39 @@ namespace Core.Data.Migrations
                         name: "FK_Categories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "varchar(250)", nullable: false),
+                    NIF = table.Column<string>(type: "char(14)", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(MAX)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "1"),
+                    Email = table.Column<string>(type: "varchar(250)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
+                    CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Controllers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ControllerName = table.Column<string>(type: "varchar(100)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
                     CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    ControllerName = table.Column<string>(type: "varchar(100)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,16 +93,16 @@ namespace Core.Data.Migrations
                 name: "Suppliers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Document = table.Column<string>(type: "char(14)", nullable: false),
+                    TypeSupplier = table.Column<string>(type: "varchar(30)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
                     CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    AddressId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Document = table.Column<string>(type: "char(14)", nullable: false),
-                    TypeSupplier = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false)
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,21 +111,20 @@ namespace Core.Data.Migrations
                         name: "FK_Suppliers_Adresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Adresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Actions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ActionName = table.Column<string>(type: "varchar(100)", nullable: true),
+                    ControllerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
                     CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    ActionName = table.Column<string>(type: "varchar(100)", nullable: true),
-                    ControllerId = table.Column<Guid>(nullable: false)
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -113,26 +133,25 @@ namespace Core.Data.Migrations
                         name: "FK_Actions_Controllers_ControllerId",
                         column: x => x.ControllerId,
                         principalTable: "Controllers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
-                    CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
-                    SupplierId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SupplierId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     Description = table.Column<string>(type: "varchar(1000)", nullable: false),
                     Image = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    DateRegister = table.Column<DateTime>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DateRegister = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "DateTime", nullable: true, defaultValueSql: "GETDATE()"),
+                    CreatedBy = table.Column<string>(type: "varchar(max)", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "DateTime", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "varchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,8 +160,7 @@ namespace Core.Data.Migrations
                         name: "FK_Products_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -174,6 +192,9 @@ namespace Core.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Products");

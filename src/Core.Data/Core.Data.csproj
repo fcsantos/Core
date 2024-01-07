@@ -39,4 +39,8 @@
     <ProjectReference Include="..\Core.Business\Core.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

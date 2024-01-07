@@ -65,20 +65,12 @@ namespace Core.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClientViewModel clientViewModel)
         {
-            clientViewModel.CertificatePathPfx = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\certificates", clientViewModel.CertificatePathPfx);
-            clientViewModel.CertificatePathCer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\certificates", clientViewModel.CertificatePathCer);
-
             var password = string.Empty;
 #if DEBUG
             password = _appSettings.DefaultPassword;
 #else
                 password = PasswordGenerator.GenerateRandomPassword();
 #endif
-
-            var (Key, IVBase64) = _symmetricEncryptDecrypt.InitSymmetricEncryptionKeyIV();
-
-            clientViewModel.SecretKey = Key;
-            clientViewModel.IVBase64 = IVBase64;
 
             var userRegister = new UserRegister { Email = clientViewModel.Email, Password = password, ConfirmPassword = password, Role = _appSettings.RoleClient, Name = clientViewModel.Name };
             var responseAuth = await _accountService.RegisterUser(userRegister);
@@ -90,14 +82,6 @@ namespace Core.Web.Controllers
             else
             {
                 clientViewModel.UserId = responseAuth.UserToken.Id;
-
-                Dictionary<string, string> client = new Dictionary<string, string>();
-                client.Add("Email", clientViewModel.Email);
-                client.Add("UserId", clientViewModel.UserId);
-                client.Add("SecretKey", clientViewModel.SecretKey);
-                client.Add("IVBase64", clientViewModel.IVBase64);
-
-                clientViewModel.ApiKey = _symmetricEncryptDecrypt.Encrypt(string.Join(",", client), IVBase64, Key);
 
                 var response = await _clientService.Create(clientViewModel);
 
@@ -129,15 +113,6 @@ namespace Core.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditPost(ClientViewModel clientViewModel)
         {
-            clientViewModel.CertificatePathPfx = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\certificates", clientViewModel.CertificatePathPfx);
-            clientViewModel.CertificatePathCer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\certificates", clientViewModel.CertificatePathCer);
-
-            var result = await _clientService.GetById(clientViewModel.Id);
-            clientViewModel.IVBase64 = result.IVBase64;
-            clientViewModel.SecretKey = result.SecretKey;
-            clientViewModel.ApiKey = result.ApiKey;
-            clientViewModel.UserId = result.UserId;
-
             var response = await _clientService.Update(clientViewModel);
 
             if (ResponseHasErrors(response)) TempData["Erros"] =
@@ -181,55 +156,12 @@ namespace Core.Web.Controllers
 
             if (clientViewModel == null) return NotFound();
 
-            var (Key, IVBase64) = _symmetricEncryptDecrypt.InitSymmetricEncryptionKeyIV();
-
-            clientViewModel.SecretKey = Key;
-            clientViewModel.IVBase64 = IVBase64;
-
-            Dictionary<string, string> client = new Dictionary<string, string>();
-            client.Add("Email", clientViewModel.Email);
-            client.Add("UserId", clientViewModel.UserId);
-            client.Add("SecretKey", clientViewModel.SecretKey);
-            client.Add("IVBase64", clientViewModel.IVBase64);
-
-            clientViewModel.ApiKey = _symmetricEncryptDecrypt.Encrypt(string.Join(",", client), IVBase64, Key);
-
             var response = await _clientService.Update(clientViewModel);
 
             if (ResponseHasErrors(response)) TempData["Erros"] =
                 ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList();
 
             return RedirectToAction("Detail", "Clients");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file)
-        {
-            if (file == null || file.Length == 0)
-                return Content("file not selected");
-
-            var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot\\certificates",
-                        file.GetFilename());
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            return RedirectToAction("Index", "Clients");
-        }
-
-        [ClaimsAuthorize("Client", "Update")]
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> Files(Guid id)
-        {
-            var clientViewModel = await _clientService.GetById(id);
-
-            if (clientViewModel == null) return NotFound();
-
-
-            return View();
         }
     }
 }

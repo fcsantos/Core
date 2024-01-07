@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning;
-using Asp.Versioning.Conventions;
 using Core.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

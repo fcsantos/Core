@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace Core.Data.Migrations
 {
     [DbContext(typeof(MyDbContext))]
@@ -15,9 +17,10 @@ namespace Core.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.25")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Core.Business.Models.Address", b =>
                 {
@@ -68,7 +71,7 @@ namespace Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Adresses", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.AppAction", b =>
@@ -101,7 +104,7 @@ namespace Core.Data.Migrations
 
                     b.HasIndex("ControllerId");
 
-                    b.ToTable("Actions");
+                    b.ToTable("Actions", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.AppController", b =>
@@ -129,7 +132,7 @@ namespace Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Controllers");
+                    b.ToTable("Controllers", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.Category", b =>
@@ -165,7 +168,7 @@ namespace Core.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.Client", b =>
@@ -173,20 +176,6 @@ namespace Core.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ApiKey")
-                        .HasColumnType("varchar(MAX)");
-
-                    b.Property<string>("Certificate")
-                        .HasColumnType("varchar(MAX)");
-
-                    b.Property<string>("CertificatePathCer")
-                        .IsRequired()
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<string>("CertificatePathPfx")
-                        .IsRequired()
-                        .HasColumnType("varchar(300)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("varchar(max)");
@@ -199,9 +188,6 @@ namespace Core.Data.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(250)");
-
-                    b.Property<string>("IVBase64")
-                        .HasColumnType("varchar(MAX)");
 
                     b.Property<bool?>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -216,17 +202,6 @@ namespace Core.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(250)");
 
-                    b.Property<string>("PasswordAT")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("PasswordPfx")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("SecretKey")
-                        .HasColumnType("varchar(MAX)");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("varchar(max)");
 
@@ -237,13 +212,9 @@ namespace Core.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(MAX)");
 
-                    b.Property<string>("UsernameAT")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.Product", b =>
@@ -294,7 +265,7 @@ namespace Core.Data.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.Supplier", b =>
@@ -340,7 +311,7 @@ namespace Core.Data.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("Core.Business.Models.AppAction", b =>
@@ -349,6 +320,8 @@ namespace Core.Data.Migrations
                         .WithMany("Actions")
                         .HasForeignKey("ControllerId")
                         .IsRequired();
+
+                    b.Navigation("Controller");
                 });
 
             modelBuilder.Entity("Core.Business.Models.Category", b =>
@@ -356,6 +329,8 @@ namespace Core.Data.Migrations
                     b.HasOne("Core.Business.Models.Category", "ParentCategory")
                         .WithMany("ParentCategories")
                         .HasForeignKey("CategoryId");
+
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("Core.Business.Models.Product", b =>
@@ -364,14 +339,38 @@ namespace Core.Data.Migrations
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .IsRequired();
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Core.Business.Models.Supplier", b =>
                 {
                     b.HasOne("Core.Business.Models.Address", "Address")
-                        .WithOne("Fornecedor")
+                        .WithOne("Supplier")
                         .HasForeignKey("Core.Business.Models.Supplier", "AddressId")
                         .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Core.Business.Models.Address", b =>
+                {
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("Core.Business.Models.AppController", b =>
+                {
+                    b.Navigation("Actions");
+                });
+
+            modelBuilder.Entity("Core.Business.Models.Category", b =>
+                {
+                    b.Navigation("ParentCategories");
+                });
+
+            modelBuilder.Entity("Core.Business.Models.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

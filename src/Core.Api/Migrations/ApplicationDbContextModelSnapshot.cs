@@ -51,36 +51,36 @@ namespace Core.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9e15a83d-f4b3-4945-bd69-8964e84cfce6",
-                            ConcurrencyStamp = "07083ebd-5609-4c90-a879-dea54fdf77fd",
+                            Id = "b9f4b35b-5fe8-488c-b860-ff0afd8375a5",
+                            ConcurrencyStamp = "8a0a7154-3714-4a76-bba4-1f2f30a722e4",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "df50e66e-95f2-4c49-8926-0cad4e5be08b",
-                            ConcurrencyStamp = "f637437f-caa5-41d6-a5bc-38e110ec88a1",
+                            Id = "71b1b73a-9fb4-4c34-888d-06a51f76dbdd",
+                            ConcurrencyStamp = "ec9d2810-022b-4e94-abe8-0ba04b6c7287",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "4601c774-2fac-44de-9b0e-b95ab2f8e558",
-                            ConcurrencyStamp = "33d2b2d6-cf49-4a83-8245-b4a7968cc2ef",
+                            Id = "21c9f966-a2b2-4d42-afcb-5fbacbe103c2",
+                            ConcurrencyStamp = "f6ae01e3-6359-46c8-9104-b85a2d9f8c09",
                             Name = "geral",
                             NormalizedName = "GERAL"
                         },
                         new
                         {
-                            Id = "6890fc7c-cd04-4e56-a36f-38b2981cf51f",
-                            ConcurrencyStamp = "6bfe76d1-9f67-4d9a-a169-95272ec77994",
-                            Name = "fornecedor",
-                            NormalizedName = "FORNECEDOR"
+                            Id = "7faf3025-fd8a-49e6-83c0-cbe3e6e3f2bd",
+                            ConcurrencyStamp = "785c98d1-adc3-41d9-96ec-00d5efa2d869",
+                            Name = "beneficiario",
+                            NormalizedName = "BENEFICIARIO"
                         },
                         new
                         {
-                            Id = "72b8d6c6-c1a8-41bb-b0b8-78d50b950941",
-                            ConcurrencyStamp = "bb1d1034-f1b2-4552-99d6-8ae5ae8806b6",
+                            Id = "bcd5072c-e09e-4a40-9652-ab35d3c12854",
+                            ConcurrencyStamp = "c6a25bcf-407e-4dc1-ba3b-6f6bdb1c0bc5",
                             Name = "cliente",
                             NormalizedName = "CLIENTE"
                         });

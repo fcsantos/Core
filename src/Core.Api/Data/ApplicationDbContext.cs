@@ -34,8 +34,8 @@ namespace Core.Api.Data
                 },
                 new IdentityRole
                 {
-                    Name = "fornecedor",
-                    NormalizedName = "FORNECEDOR"
+                    Name = "beneficiario",
+                    NormalizedName = "BENEFICIARIO"
                 },
                 new IdentityRole
                 {

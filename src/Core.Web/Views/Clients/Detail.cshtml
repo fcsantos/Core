@@ -21,17 +21,6 @@
             <label asp-for="Email" class="control-label"></label>
             <input asp-for="Email" class="form-control" readonly />
         </div>
-        <br />
-        <div class="form-row">
-            <form asp-action="DetailPost" class="form-inline" id="form-id">
-                <div class="form-group mx-sm-3 mb-5">
-                    <label asp-for="ApiKey" class="control-label"></label>&nbsp&nbsp
-                    <input asp-for="ApiKey" class="form-control" readonly />
-                </div>
-                <a class="btn bg-gradient-orange mb-5" id="copy" data-text="" data-toggle="tooltip" data-placement="right" title="@LocalizerGeneral["Copiar ApiKey"]"><i class="fas fa-clone"></i></a>&nbsp&nbsp
-                <button type="submit" class="btn btn-primary mb-5">Gerar ApiKey</button>
-            </form>
-        </div>
     </div>
 </div>
 

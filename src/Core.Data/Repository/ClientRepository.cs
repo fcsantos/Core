@@ -16,10 +16,5 @@ namespace Core.Data.Repository
         {
             return await Db.Clients.AsNoTracking().Where(p => p.UserId.Equals(userId)).FirstOrDefaultAsync();
         }
-
-        public async Task<Client> GetClientByApiKey(string apiKey)
-        {
-            return await Db.Clients.AsNoTracking().Where(p => p.ApiKey.Equals(apiKey)).FirstOrDefaultAsync();
-        }
     }
 }

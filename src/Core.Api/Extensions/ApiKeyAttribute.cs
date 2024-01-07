@@ -28,15 +28,15 @@ namespace Core.Api.Extensions
 
             var client = context.HttpContext.RequestServices.GetRequiredService<IClientRepository>();
 
-            if (client.GetClientByApiKey(extractedApiKey).Result == null)
-            {
-                context.Result = new ContentResult()
-                {
-                    StatusCode = 403,
-                    Content = "Acesso não autorizado"
-                };
-                return;
-            }
+            //if (client.GetClientByApiKey(extractedApiKey).Result == null)
+            //{
+            //    context.Result = new ContentResult()
+            //    {
+            //        StatusCode = 403,
+            //        Content = "Acesso não autorizado"
+            //    };
+            //    return;
+            //}
 
             await next();
         }
