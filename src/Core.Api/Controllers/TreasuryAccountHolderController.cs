@@ -70,8 +70,17 @@ namespace Core.Api.Controllers
                 treasury_account_holder_id = Guid.Parse(treasuryAccountHolderResponse.treasury_account_holder.id)
             };
 
+            var baModel = new BalanceAccountDTO
+            {
+                balance = treasuryAccountHolderResponse.treasury_accounts[0].balance_accounts[0].balance,
+                currency = treasuryAccountHolderResponse.treasury_accounts[0].balance_accounts[0].currency,
+                id = treasuryAccountHolderResponse.treasury_accounts[0].balance_accounts[0].id,
+                treasury_account_id = treasuryAccountHolderResponse.treasury_accounts[0].id,
+            };
+
             await _dapperSwapDbRepository.AddTreasuryAccountHolderAsync(tahModel);
             await _dapperSwapDbRepository.AddTreasuryAccountAsync(taMopdel);
+            await _dapperSwapDbRepository.AddBalanceAccountAsync(baModel);
 
             return Ok(treasuryAccountHolderResponse);
         }
