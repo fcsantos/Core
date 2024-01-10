@@ -34,6 +34,8 @@ namespace Core.Api.Configuration
 
             services.AddScoped<IDapperDbRepository, DapperDbRepository>();
 
+            services.AddScoped<IDapperSwapDbRepository, DapperSwapDbRepository>();
+
             services.AddTransient<SymmetricEncryptDecrypt>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

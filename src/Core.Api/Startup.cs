@@ -1,7 +1,7 @@
 using Asp.Versioning.ApiExplorer;
 using AutoMapper;
 using Core.Api.Configuration;
-using Core.Api.Extensions;
+using Core.Api.SwapModels;
 using Core.Data.Context;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Builder;
@@ -81,7 +81,7 @@ namespace Core.Api
 
                     using (var response = httpClient.PostAsync(url, content).Result)
                     {
-                        Extensions.TokenResponse tokenResponse = JsonConvert.DeserializeObject<Extensions.TokenResponse>(response.Content.ReadAsStringAsync().Result);
+                        SwapModels.TokenResponse tokenResponse = JsonConvert.DeserializeObject<SwapModels.TokenResponse>(response.Content.ReadAsStringAsync().Result);
                         token = tokenResponse.access_token;
                         cache.Set("AlphaToken", token, new TimeSpan(0, 0, tokenResponse.expires_in - 180));
                     }

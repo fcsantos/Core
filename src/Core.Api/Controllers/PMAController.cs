@@ -14,7 +14,10 @@ namespace Core.Api.Controllers
     public class PMAController : MainController
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public PMAController(IHttpClientFactory httpClientFactory, INotifier notifier, IUser user) : base(notifier, user) => _httpClientFactory = httpClientFactory;
+
+        public PMAController(IHttpClientFactory httpClientFactory, INotifier notifier, IUser user) : 
+            base(notifier, user) => 
+            _httpClientFactory = httpClientFactory;
 
         [HttpGet]
         public async Task<IActionResult> Get()

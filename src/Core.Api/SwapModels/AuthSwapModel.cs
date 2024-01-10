@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Extensions
+﻿namespace Core.Api.SwapModels
 {
     public class AuthRequest
     {
